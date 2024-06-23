@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>First Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="l-menu fc">
+    <img src="/images/retro.png">
+
+    <ul class="l-lists">
+
+      <div class="car-services">
+        <li>
+
+          <button class="css-button-sliding-to-left--sky dashboard-btn" id="dashboard-btn">
+            <img class="icons icon-p1" src="/images/dashboard.png" alt="icon">
+            Dashboard
+          </button>
+        </li>
+
+        <li>
+          <button class="css-button-sliding-to-left--sky" id="addCar-btn">
+            <img class="icons icon-p1" src="/images/start-service.png" alt="icon">
+            Add Car
+          </button>
+        </li>
+        <li>
+
+          <button class="css-button-sliding-to-left--sky" id="carStatus-btn">
+            <img class="icons icon-p1" src="/images/car-info.png" alt="icon">
+            Car Status
+          </button>
+        </li>
+        <li>
+
+          <button class="css-button-sliding-to-left--sky" id="checkCar-btn">
+            <img class="icons icon-p1
+            " src="/images/Check-car.png" alt="icon">
+            Check Car
+          </button>
+        </li>
+      </div>
+
+      <div class="wo-dropdown childs-p1">
+        <button id="woButton" class="css-button-arrow--sky" onclick="workerFunc()" aria-haspopup="true"
+          aria-expanded="false">
+          <img class="icons icon-p1" src="/images/worker.png" alt="icon">
+          Workers
+        </button>
+        <div id="woDropdown" class="dropdown-content hide" aria-labelledby="usersButton">
+          <li><button class="css-button-sliding-to-left-low">Add Worker</button></li>
+          <li><button class="css-button-sliding-to-left-low">Change Worker Info</button></li>
+          <li><button class="css-button-sliding-to-left-low">Delete Worker</button></li>
+          <li><button class="css-button-sliding-to-left-low">Check Worker Info</button></li>
+        </div>
+      </div>
+
+      <div class="user-dropdown childs-p1">
+        <button id="usersButton" class="css-button-arrow--sky" onclick="userFunc()" aria-haspopup="true"
+          aria-expanded="false">
+          <img class="icons icon-p1" src="/images/user.png" alt="icon">
+          Users
+        </button>
+        <div id="usersDropdown" class="dropdown-content" aria-labelledby="usersButton">
+          <li><button class="css-button-sliding-to-left-low">Add User</button></li>
+          <li><button class="css-button-sliding-to-left-low">Users Privilege</button></li>
+          <li><button class="css-button-sliding-to-left-low">Delete User</button></li>
+          <li><button class="css-button-sliding-to-left-low">User Info</button></li>
+        </div>
+      </div>
+    </ul>
+  </div>
+
+  <div class="main-container">
+    <a href="JS/index.html" style="font-size: 80px; background-color: yellow;">GO TO JS</a>
+    <div id="sliding-div" style="display: none;">
+      loading ...
+    </div>
+  </div>
+  <script src="script.js"></script>
+
+</body>
+
+</html>

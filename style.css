@@ -1,0 +1,304 @@
+* {
+    font-size: 18px;
+    --primary-color: red;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+/* div {
+    display: flex;
+    flex-direction: column;
+} */
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex !important;
+    align-items: center;
+    font-weight: bold;
+}
+
+.icons {
+    width: 42px;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+img {
+    float: left;
+    margin-right: 25px;
+}
+
+.childs-p1 * {
+    padding-top: 8px;
+}
+
+.l-menu {
+    width: 16%;
+    height: 98vh;
+    display: flex;
+    flex-direction: column;
+    /* position: fixed; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    border-right: 5px solid rgba(28, 110, 164, 0.23);
+    border-radius: 0px 10px 10px 0px;
+    background-color: #fff;
+}
+
+.l-lists {
+    width: 100%;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+.wo-dropdown,
+.user-dropdown {
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.icon-p1 {
+    padding-right: 8px;
+}
+
+.dropdown-content {
+    display: none;
+    position: relative;
+    min-width: fit-content;
+    z-index: 1;
+    padding: 15px 10px;
+    animation: slide-down1 0.4s ease-out;
+}
+
+.dropdown-content.show {
+    display: flex;
+    animation: slide-down 0.4s ease-out;
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-down1 {
+    from {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+.car-services li {
+    padding: 10px;
+}
+
+/* button animations  */
+
+/* 1st */
+.css-button-sliding-to-left--sky {
+    width: 14vw;
+    height: fit-content;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 5px;
+    z-index: 0;
+    background: #fff;
+    overflow: hidden;
+    border: 2px solid #3a57e8;
+    color: #3a57e8;
+}
+
+.css-button-sliding-to-left--sky:hover {
+    color: #fff;
+}
+
+.css-button-sliding-to-left--sky:hover:after {
+    width: 100%;
+}
+
+.css-button-sliding-to-left--sky:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    transition: all 0.3s ease;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: #3a57e8;
+}
+
+/* 2nd */
+.css-button-arrow--sky {
+    width: 14vw;
+    height: fit-content;
+    color: #fff;
+    padding: 5px 10px !important;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    background-color: #3a57e8;
+}
+
+.css-button-arrow--sky:hover {
+    border-radius: 5px;
+    padding-right: 24px;
+    padding-left: 8px;
+}
+
+.css-button-arrow--sky:hover:after {
+    opacity: 1;
+    top: 4px;
+}
+
+.css-button-arrow--sky:after {
+    content: "\21E3";
+    position: absolute;
+    opacity: 0;
+    font-size: 26px;
+    line-height: 40px;
+    top: -30px;
+    right: 15px;
+    transition: 0.4s;
+    padding-top: 8px;
+}
+
+/* 3th */
+.css-button-sliding-to-left-low {
+    width: fit-content;
+    height: fit-content;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border: none;
+    z-index: 0;
+    background: #fff;
+    overflow: hidden;
+    color: #3a57e8;
+}
+
+.css-button-sliding-to-left-low:hover {
+    color: #526be6;
+    text-shadow: 1px 1px white;
+}
+
+.css-button-sliding-to-left-low:hover:after {
+    width: 100%;
+}
+
+.css-button-sliding-to-left-low:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    transition: all 0.3s ease;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 50%;
+    background: #3a57e8;
+}
+
+/* 4th */
+.css-button-arrow-d-sky {
+    width: 14vw;
+    height: fit-content;
+    color: #fff;
+    padding: 5px 10px !important;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    background-color: #3a57e8;
+}
+
+.css-button-arrow-d-sky:hover {
+    border-radius: 5px;
+    padding-right: 24px;
+    padding-left: 8px;
+}
+
+.css-button-arrow-d-sky:hover:after {
+    opacity: 1;
+    top: 4px;
+}
+
+.css-button-arrow-d-sky:after {
+    content: "\21E1";
+    position: absolute;
+    opacity: 0;
+    font-size: 26px;
+    line-height: 40px;
+    top: -30px;
+    right: 15px;
+    transition: 0.4s;
+    padding-top: 8px;
+}
+
+.main-container {
+    width: 100%;
+    height: 98vh;
+}
+
+.sliding-div {
+    width: 40vw;
+    height: 5AV0vh;
+    position: relative;
+    left: 25%;
+    top: 15%;
+    background-color: grey;
+}
+
+#sliding-div {
+    display: block;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    transition: height 0.5s; /* Add a transition effect */
+  }
