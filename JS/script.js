@@ -1,3 +1,9 @@
+let urlAuth = "https://somar-jaber.serv00.net/api/auth";
+let urlCars = "https://somar-jaber.serv00.net/api/cars";
+let urlWorker = "https://somar-jaber.serv00.net/api/workers";
+let urlBranches = "https://somar-jaber.serv00.net/api/branches";
+let urlRepairs = "https://somar-jaber.serv00.net/api/repairs";
+
 // 1. Get the username element
 const username = document.getElementById('username');
 
@@ -122,10 +128,40 @@ const closeCarListBtn = document.getElementById('close-car-list-btn');
 // 40. Get the car list body element
 const carListBody = document.getElementById('car-list-body');
 
-// 41. Addevent listener to the view car list button
+// 41. Add event listener to the view car list button
 viewCarListBtn.addEventListener('click', () => {
   // 42. Add the 'lide-in' class to the car list window
   carListWindow.classList.add('slide-in');
+
+  // Fetch data from the urlCars API
+  fetch(urlCars)
+   .then(response => response.json())
+   .then(data => {
+      // Clear the car list body
+      carListBody.innerHTML = '';
+
+      // Loop through the car data
+      data.forEach(car => {
+        // Create a table row element
+        const tableRow = document.createElement('tr');
+
+        // Loop through the car data keys
+        Object.keys(car).forEach(key => {
+          // Create a table cell element
+          const tableCell = document.createElement('td');
+
+          // Set the table cell text content to the car data value
+          tableCell.textContent = car[key];
+
+          // Append the table cell to the table row
+          tableRow.appendChild(tableCell);
+        });
+
+        // Append the table row to the car list body
+        carListBody.appendChild(tableRow);
+      });
+    })
+   .catch(error => console.error('Error fetching car data:', error));
 });
 
 // 43. Add event listener to the close car list button
@@ -236,9 +272,9 @@ workerListTable.addEventListener('click', (e) => {
 function getWorkerDataFromRow(row) {
   const cells = row.cells;
   return {
-    name: cells[0].textContent,
-    adress: cells[1].textContent,
-    phone: cells[2].textContent
+    name: cells[0].textContent.trim(), // Add trim() to remove any whitespace
+    adress: cells[1].textContent.trim(),
+    phone: cells[2].textContent.trim()
   };
 }
 

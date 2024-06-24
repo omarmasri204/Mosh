@@ -22,7 +22,7 @@
 			margin: 10px 0;
 			border: 1px solid #ccc;
 		}
-		.login-form input[type="submit"] {
+		.bbt {
 			width: 100%;
 			padding: 10px;
 			background-color: #4CAF50;
@@ -31,19 +31,49 @@
 			border-radius: 10px;
 			cursor: pointer;
 		}
-		.login-form input[type="submit"]:hover {
+		.bbt:hover {
 			background-color: #3e8e41;
 		}
 	</style>
+	  <script src="./assets/UI.js"></script>
+
 </head>
 <body>
 	<div class="login-form">
 		<h2>Login</h2>
 		<form>
-			<input type="text" placeholder="Username" required>
-			<input type="password" placeholder="Password" required>
-			<input type="submit" value="Login">
+			<input type="text" id="email" placeholder="Email" required>
+			<input type="password" id="password" placeholder="Password" required>
+			<button class="bbt" id="L-Btn">Login</button>
 		</form>
 	</div>
+
+	<script>
+		const emailInput = document.getElementById('email');
+		const passwordInput = document.getElementById('password');
+		const loginButton = document.getElementById('L-Btn');
+		const loginForm = document.querySelector('.login-form');
+
+		loginForm.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const email = emailInput.value;
+			const password = passwordInput.value;
+
+			try {
+				const isAuthenticated = await UI.auth(email, password);
+				if (isAuthenticated) {
+					console.log('Authentication successful!');
+					console.log(localStorage.getItem("token"))
+					// Redirect to a protected page or perform some other action
+					window.location.href = 'index.html';
+				} else {
+					console.log('Authentication failed!');
+				}
+			} catch (error) {
+				console.error('Error authenticating:', error);
+			}
+		});
+		
+	</script>
 </body>
 </html>
