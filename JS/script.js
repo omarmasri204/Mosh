@@ -172,6 +172,89 @@ document.getElementById('view-car-list-btn').addEventListener('click', () => {
         tableBody.appendChild(tableRow);
     });
 });
+// Get the car list table and the car details window
+const carListTable = document.getElementById('car-list-table');
+const carDetailsWindow = document.getElementById('car-details-window');
+const closeCarDetailsBtn = document.getElementById('close-car-details-btn');
+
+// Add an event listener to the table
+carListTable.addEventListener('click', (e) => {
+  if (e.target.tagName === 'TD') {
+    const row = e.target.parentNode; // Get the parent row
+    const carData = getCarDataFromRow(row); // You'll need to implement this function
+    displayCarDetails(carData);
+  }
+});
+
+// Function to retrieve the car data from the row (you'll need to implement this)
+function getCarDataFromRow(row) {
+  const cells = row.cells;
+  return {
+    make: cells[0].textContent,
+    model: cells[1].textContent,
+    year: cells[2].textContent,
+    color: cells[3].textContent,
+    mileage: cells[4].textContent,
+    owner: cells[5].textContent,
+    notes: cells[6].textContent
+  };
+}
+
+// Function to display the car details in the car details window
+function displayCarDetails(carData) {
+  document.getElementById('car-make').value = carData.make;
+  document.getElementById('car-model').value = carData.model;
+  document.getElementById('car-year').value = carData.year;
+  document.getElementById('car-color').value = carData.color;
+  document.getElementById('car-mileage').value = carData.mileage;
+  document.getElementById('car-owner').value = carData.owner;
+  document.getElementById('car-notes').value = carData.notes;
+  
+  carDetailsWindow.classList.remove('hidden');
+}
+
+closeCarDetailsBtn.addEventListener('click', () => {
+  carDetailsWindow.classList.add('hidden');
+});
+
+////////////////////////////////////////////
+// Get the worker list table and the worker details window
+const workerListTable = document.getElementById('worker-list');
+const workerDetailsWindow = document.getElementById('worker-details-window');
+const closeWorkerDetailsBtn = document.getElementById('close-worker-details-btn');
+
+// Add an event listener to the table
+workerListTable.addEventListener('click', (e) => {
+  if (e.target.tagName === 'TD') {
+    const row = e.target.parentNode; // Get the parent row
+    const workerData = getWorkerDataFromRow(row); // You'll need to implement this function
+    displayWorkerDetails(workerData);
+  }
+});
+
+// Function to retrieve the worker data from the row (you'll need to implement this)
+function getWorkerDataFromRow(row) {
+  const cells = row.cells;
+  return {
+    name: cells[0].textContent,
+    adress: cells[1].textContent,
+    phone: cells[2].textContent
+  };
+}
+
+// Function to display the worker details in the worker details window
+function displayWorkerDetails(workerData) {
+  document.getElementById('worker-name').value = workerData.name;
+  document.getElementById('worker-adress').value = workerData.adress;
+  document.getElementById('worker-phone').value = workerData.phone;
+  
+  workerDetailsWindow.classList.remove('hidden');
+}
+
+closeWorkerDetailsBtn.addEventListener('click', () => {
+  workerDetailsWindow.classList.add('hidden');
+});
+///////////////////////////////////////////////////////
 
 // 58. Fetch workers from the API
 fetch('api/workers')
