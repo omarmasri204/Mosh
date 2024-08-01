@@ -95,6 +95,12 @@ document.getElementById('add-car-form').addEventListener('submit', (e) => {
   // 32. Prevent the default form submission behavior
   e.preventDefault();
 
+  const yearInput = document.getElementById('car-year');
+  if (!yearInput.validity.valid) {
+    // If the year input is invalid, don't submit the form
+    return;
+  }
+
   // 33. Get the form data
   const formData = new FormData(e.target);
 
@@ -112,7 +118,7 @@ document.getElementById('add-car-form').addEventListener('submit', (e) => {
   // 35. Add the car data to the car list
   carList.push(carData);
 
-  // 36. Remove the 'slide-in' class from the add car window
+  // 36. Remove the 'lide-in' class from the add car window
   addCarWindow.classList.remove('slide-in');
 });
 
