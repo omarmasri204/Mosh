@@ -6,6 +6,7 @@
   <title>Automated Car Fixing Center</title>
   <link rel="stylesheet" href="style.css" />
   <script src="./assets/UI.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -46,72 +47,6 @@
 
       </div>
 
-      <div id="car-list-window" class="slide-out hidden">
-        <h2>Car List</h2>
-        <table id="car-list-table">
-          <thead>
-            <tr>
-              <th>Make</th>
-              <th>Model</th>
-              <th>Year</th>
-              <th>Color</th>
-              <th>Mileage</th>
-              <th>Owner</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody id="car-list-body">
-            <!-- Car list will be displayed here -->
-          </tbody>
-        </table>
-        <button id="close-car-list-btn">Close</button>
-      </div>
-      <div id="car-details-window" class="hidden">
-        <h2>Car Details</h2>
-        <form>
-          <label for="car-make">Make:</label>
-          <input type="text" id="car-make"><br>
-          <label for="car-model">Model:</label>
-          <input type="text" id="car-model"><br>
-          <label for="car-year">Year:</label>
-          <input type="number" id="car-year"><br>
-          <label for="car-color">Color:</label>
-          <input type="text" id="car-color"><br>
-          <label for="car-mileage">Mileage:</label>
-          <input type="number" id="car-mileage"><br>
-          <label for="car-owner">Owner:</label>
-          <input type="text" id="car-owner"><br>
-          <label for="car-notes">Notes:</label>
-          <textarea id="car-notes"></textarea><br>
-          <button type="submit">Save Changes</button>
-        </form>
-        <button id="close-car-details-btn">Close</button>
-        <button id="delete-car-btn">Delete</button>
-      </div>
-      </section>
-
-      <div id="add-car-window" class="hidden">
-        <!-- Content of the window goes here -->
-        <h2>Add Car</h2>
-        <form id="add-car-form">
-          <label for="car-make">Make:</label>
-          <input type="text" id="car-make" name="car-make">
-          <label for="car-model">Model:</label>
-          <input type="text" id="car-model" name="car-model">
-          <label for="car-year">Year:</label>
-          <input type="number" id="car-year" name="car-year" min="" max="">
-          <label for="car-color">Color:</label>
-          <input type="text" id="car-color" name="car-color">
-          <label for="car-mileage">Mileage:</label>
-          <input type="number" id="car-mileage" name="car-mileage">
-          <label for="car-owner">Owner:</label>
-          <input type="text" id="car-owner" name="car-owner">
-          <label for="car-notes">Notes:</label>
-          <textarea id="car-notes" name="car-notes"></textarea>
-          <button type="submit">Add Car</button>
-        </form>
-      </div>
-
       <div class="wo-dropdown childs-p1">
         <button id="woButton" class="css-button-arrow--sky" onclick="workerFunc()" aria-haspopup="true"
           aria-expanded="false">
@@ -140,65 +75,6 @@
         </div>
       </div>
     </ul>
-  </div>
-
-  <div id="add-worker-window" class="hidden">
-    <!-- Content of the window goes here -->
-    <h2>Add Worker</h2>
-    <form id="add-worker-form">
-      <label for="worker-name">Name:</label>
-      <input type="text" id="worker-name" name="worker-name">
-      <label for="worker-phone">Phone:</label>
-      <input type="tel" id="worker-phone" name="worker-phone">
-      <label for="worker-adress">adress:</label>
-      <input type="text" id="worker-adress" name="worker-adress">
-      <select name="worker-speciality" id="dropdown">
-        <option value="">Worker Speciality</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="option4">Option 4</option>
-      </select>
-      <button type="submit">Add Worker</button>
-    </form>
-  </div>
-
-  <div id="worker-list-window" class="hidden">
-    <h2>Worker List</h2>
-    <button id="close-worker-list-btn">Close</button>
-    <table id="worker-list">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Adress</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody id="worker-list-body">
-        <!-- Worker list will be displayed here -->
-      </tbody>
-    </table>
-  </div>
-  <div id="worker-details-window" class="hidden">
-    <h2>Worker Details</h2>
-    <form id="add-worker-form">
-      <label for="worker-name">Name:</label>
-      <input type="text" id="worker-name" name="worker-name">
-      <label for="worker-phone">Phone:</label>
-      <input type="tel" id="worker-phone" name="worker-phone">
-      <label for="worker-adress">adress:</label>
-      <input type="text" id="worker-adress" name="worker-adress">
-      <select name="worker-speciality" id="dropdown">
-        <option value="">Worker Speciality</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="option4">Option 4</option>
-      </select>
-      <button type="submit">Update Worker</button>
-    </form>
-    <button id="close-worker-details-btn">Close</button>
-    <button id="delete-worker-btn">Delete</button>
   </div>
 
   <div class="main-container">
