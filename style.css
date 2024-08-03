@@ -312,10 +312,13 @@ img {
 
 @media only screen and (max-width: 480px) {
 
-  /* Styles go here
   .l-menu {
-    display: none;
-  } */
+    width: 70vw;
+  }
+
+  .l-lists button {
+    width: 45vw;
+  }
 }
 
 @media only screen and (max-width: 768px) {
