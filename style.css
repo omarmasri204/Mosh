@@ -23,7 +23,7 @@ body {
   justify-content: space-between;
 }
 
-.navbar div {
+.navbar-brand {
   font-size: 24px;
   padding: 15px;
 }
@@ -81,7 +81,7 @@ img {
   padding: 0;
 }
 
-.l-r {
+.lists-r {
   display: flex;
   flex-direction: column;
   align-items: center !important;
@@ -312,22 +312,42 @@ img {
 
 @media only screen and (max-width: 480px) {
 
+  .navbar-brand {
+    font-size: 5vw !important;
+    padding: 10px !important;
+  }
+
+  .drop-menu {
+    padding: 10px 10px !important;
+  }
+
   .l-menu {
-    width: 70vw;
+    width: 70vw !important;
   }
 
   .l-lists button {
-    width: 45vw;
+    width: 45vw !important;
   }
 }
 
 @media only screen and (max-width: 768px) {
 
+  .logo {
+    display: none;
+  }
+
+  .dropdown-r button {
+    width: fit-content !important;
+  }
+
+  .drop-menu {
+    padding: 1vw 2vw;
+  }
+
   .l-menu {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 60%;
     height: fit-content;
     transform: translate(-50%, -50%);
     background-color: #fff;
@@ -349,9 +369,15 @@ img {
     .l-lists  button {
       width: 35vw;
     }
+
+    .navbar-brand {
+      font-size: 3vw;
+      padding: 15px;
+      align-self: center;
+    }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
 
   /* Styles go here */
   .l-menu {
@@ -381,7 +407,6 @@ img {
 
 .drop-menu {
   margin: 5px 10px;
-  padding: 5px 15px;
   color: #3A57E8;
   font-size: 1.2em;
   font-variant: small-caps;
