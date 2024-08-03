@@ -1,5 +1,6 @@
 // Constants for class names and image sources
 const CLASS_SHOW = 'show';
+const CLASS_HIDDEN = 'hidden';
 const CLASS_ARROW_DOWN = 'css-button-arrow-d-sky';
 const CLASS_ARROW_UP = 'css-button-arrow--sky';
 const IMAGE_SOURCES = {
@@ -64,6 +65,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const slideMenu = document.querySelector('.l-menu');
 
   dropMenuButton.addEventListener('click', () => {
-    slideMenu.classList.toggle(CLASS_SHOW);
+    slideMenu.classList.toggle(CLASS_HIDDEN);
   });
 });
+
+// Get the element
+const lMenu = document.querySelector('.l-menu');
+const Logo = document.querySelector('.logo');
+
+// Add an event listener for window resize
+window.addEventListener('resize', () => {
+  // Check if the screen width is less than 768px
+  if (window.innerWidth < 768) {
+    // Add the hidden class
+    lMenu.classList.add('hidden');
+    Logo.classList.add('hidden');
+  } else {
+    // Remove the hidden class
+    lMenu.classList.remove('hidden');
+    Logo.classList.remove('hidden');
+  }
+});
+
+// Also, check the screen width on page load
+if (window.innerWidth < 768) {
+  lMenu.classList.add('hidden');
+  Logo.classList.add('hidden');
+}

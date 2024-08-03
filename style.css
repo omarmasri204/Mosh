@@ -42,7 +42,7 @@ button {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .icons {
@@ -70,11 +70,6 @@ img {
   height: 98vh;
   display: flex;
   flex-direction: column;
-  /* position: fixed; */
-  top: 0;
-  bottom: 0;
-  left: 0;
-
   border-right: 5px solid rgba(28, 110, 164, 0.23);
   border-radius: 0px 10px 10px 0px;
   background-color: #fff;
@@ -84,6 +79,12 @@ img {
   width: 100%;
   margin: 20px auto;
   padding: 0;
+}
+
+.l-r {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
 }
 
 .wo-dropdown,
@@ -308,26 +309,46 @@ img {
   align-items: center;
 }
 
+
 @media only screen and (max-width: 480px) {
 
-  /* Styles go here */
+  /* Styles go here
   .l-menu {
     display: none;
-  }
+  } */
 }
 
 @media only screen and (max-width: 768px) {
 
-  /* Styles go here */
   .l-menu {
-    display: none;
-  }
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: fit-content;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 60vw;  }
 
-  .l-menu.show {
-    display: flex;  }
+  .drop-menu {
+    visibility: visible !important;  }
+
+    .l-lists {
+      display: flex;
+      flex-direction: column;
+      align-items: center !important;
+    }
+    
+    .l-lists  button {
+      width: 35vw;
+    }
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (min-width: 768px) {
 
   /* Styles go here */
   .l-menu {
@@ -362,7 +383,7 @@ img {
   font-size: 1.2em;
   font-variant: small-caps;
   cursor: pointer;
-  display: block;
+  visibility: hidden;
   border-radius: 8px;
   background-color: #FFFFFF;
 }
