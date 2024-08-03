@@ -1,54 +1,69 @@
+// Constants for class names and image sources
+const CLASS_SHOW = 'show';
+const CLASS_ARROW_DOWN = 'css-button-arrow-d-sky';
+const CLASS_ARROW_UP = 'css-button-arrow--sky';
+const IMAGE_SOURCES = {
+  dashboard: 'images/dashboard.png',
+  dashboardWhite: 'images/dashboard-w.png',
+  startService: 'images/start-service.png',
+  startServiceWhite: 'images/start-service-w.png',
+  carInfo: 'images/car-info.png',
+  carInfoWhite: 'images/car-info-w.png',
+  checkCar: 'images/Check-car.png',
+  checkCarWhite: 'images/Check-car-w.png',
+};
 
-function userFunc() {
-    const dropdownContent = document.getElementById("usersDropdown");
-    dropdownContent.classList.toggle("show");
-    const btnArrowUp = document.getElementById("usersButton");
-    btnArrowUp.classList.toggle("css-button-arrow-d-sky");
-    btnArrowUp.classList.toggle("css-button-arrow--sky");
+// Function to toggle dropdown content and button arrow
+function toggleDropdownContent(dropdownId, buttonId) {
+  const dropdownContent = document.getElementById(dropdownId);
+  const btnArrowUp = document.getElementById(buttonId);
+
+  if (dropdownContent && btnArrowUp) {
+    dropdownContent.classList.toggle(CLASS_SHOW);
+    btnArrowUp.classList.toggle(CLASS_ARROW_DOWN);
+    btnArrowUp.classList.toggle(CLASS_ARROW_UP);
+  }
 }
-function workerFunc() {
-    const dropdownContent = document.getElementById("woDropdown");
-    dropdownContent.classList.toggle("show");
-    const btnArrowUp = document.getElementById("woButton");
-    btnArrowUp.classList.toggle("css-button-arrow-d-sky");
-    btnArrowUp.classList.toggle("css-button-arrow--sky");
+
+// Function to handle mouseover and mouseout events for buttons
+function handleButtonMouseEvents(buttonId, iconId, imageSourceWhite, imageSourceDefault) {
+  const button = document.getElementById(buttonId);
+  const icon = document.getElementById(iconId);
+
+  if (button && icon) {
+    button.addEventListener('mouseover', () => {
+      icon.src = imageSourceWhite;
+    });
+
+    button.addEventListener('mouseout', () => {
+      icon.src = imageSourceDefault;
+    });
+  }
 }
-/* end */ 
 
-document.getElementById('dash-btn').addEventListener('mouseover', function() {
-  document.getElementById('dash-icon').src = 'images/dashboard-w.png';
-});
+// Initialize event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // Dropdown content and button arrow toggles
+  document.getElementById('usersButton').addEventListener('click', () => {
+    toggleDropdownContent('usersDropdown', 'usersButton');
+  });
 
-document.getElementById('dash-btn').addEventListener('mouseout', function() {
-  document.getElementById('dash-icon').src = 'images/dashboard.png';
-});
+  document.getElementById('woButton').addEventListener('click', () => {
+    toggleDropdownContent('woDropdown', 'woButton');
+  });
 
-////////////////////////////////////////////////////////////////////////////
+  // Button mouseover and mouseout events
+  handleButtonMouseEvents('dash-btn', 'dash-icon', IMAGE_SOURCES.dashboardWhite, IMAGE_SOURCES.dashboard);
+  handleButtonMouseEvents('add-car-btn', 'add-car-icon', IMAGE_SOURCES.startServiceWhite, IMAGE_SOURCES.startService);
+  handleButtonMouseEvents('car-status-btn', 'car-status-icon', IMAGE_SOURCES.carInfoWhite, IMAGE_SOURCES.carInfo);
+  handleButtonMouseEvents('view-car-list-btn', 'view-car-list-icon', IMAGE_SOURCES.checkCarWhite, IMAGE_SOURCES.checkCar);
 
-document.getElementById('add-car-btn').addEventListener('mouseover', function() {
-  document.getElementById('add-car-icon').src = 'images/start-service-w.png';
-});
 
-document.getElementById('add-car-btn').addEventListener('mouseout', function() {
-  document.getElementById('add-car-icon').src = '/images/start-service.png';
-});
 
-///////////////////////////////////////////////////////////////////////////
+  const dropMenuButton = document.querySelector('.drop-menu');
+  const slideMenu = document.querySelector('.l-menu');
 
-document.getElementById('car-status-btn').addEventListener('mouseover', function() {
-  document.getElementById('car-status-icon').src = 'images/car-info-w.png';
-});
-
-document.getElementById('car-status-btn').addEventListener('mouseout', function() {
-  document.getElementById('car-status-icon').src = 'images/car-info.png';
-});
-
-////////////////////////////////////////////////////////////////////////////
-
-document.getElementById('view-car-list-btn').addEventListener('mouseover', function() {
-  document.getElementById('view-car-list-icon').src = 'images/Check-car-w.png';
-});
-
-document.getElementById('view-car-list-btn').addEventListener('mouseout', function() {
-  document.getElementById('view-car-list-icon').src = 'images/Check-car.png';
+  dropMenuButton.addEventListener('click', () => {
+    slideMenu.classList.toggle(CLASS_SHOW);
+  });
 });

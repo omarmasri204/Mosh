@@ -5,11 +5,13 @@
 <head>
   <title>Automated Car Fixing Center</title>
   <link rel="stylesheet" href="style.css" />
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/menu-boxed.css' rel='stylesheet'>
   <script src="./assets/UI.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
+
   <div class="l-menu fc">
     <img src="/images/retro.png">
 
@@ -55,9 +57,9 @@
         </button>
         <div id="woDropdown" class="dropdown-content hide" aria-labelledby="usersButton">
           <li><button class="css-button-sliding-to-left-low">Add Worker</button></li>
-          <li><button class="css-button-sliding-to-left-low">Change Worker Info</button></li>
+          <li><button class="css-button-sliding-to-left-low">Edit Worker</button></li>
           <li><button class="css-button-sliding-to-left-low">Delete Worker</button></li>
-          <li><button class="css-button-sliding-to-left-low">Check Worker Info</button></li>
+          <li><button class="css-button-sliding-to-left-low">Workers List</button></li>
         </div>
       </div>
 
@@ -78,6 +80,22 @@
   </div>
 
   <div class="main-container">
+    <nav class="navbar">
+      <div class="navbar-brand">Automated Car Fixing Center</div>
+      <button class="drop-menu"><i class="gg-menu-boxed"></i></button>
+      <ul class="slide">
+        <li><a href="#">Lorem Ipsum</a></li> 
+        <li><a href="#">Lorem Ipsum</a></li>
+        <li><a href="#">Lorem Ipsum</a></li>
+        <li><a href="#">Lorem Ipsum</a></li>
+      </ul>
+
+      <!-- <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul> -->
+    </nav>
     <a href="1JS/index.html" style="font-size: 80px; background-color: yellow;">GO TO JS</a>
     <div id="sliding-div" style="display: none;">
       loading ...
