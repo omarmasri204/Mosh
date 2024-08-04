@@ -81,10 +81,16 @@ img {
   padding: 0;
 }
 
-.lists-r {
+.lists-rc {
   display: flex;
   flex-direction: column;
   align-items: center !important;
+}
+
+.lists-rl {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
 }
 
 .wo-dropdown,
@@ -110,7 +116,6 @@ img {
   display: flex;
   animation: slide-down 0.4s ease-out;
   flex-direction: column;
-  align-items: center;
 }
 
 @keyframes slide-down {
@@ -355,7 +360,9 @@ img {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 60vw;  }
+    width: 60vw;  
+    animation: slideIn 0.4s forwards;
+  }
 
   .drop-menu {
     visibility: visible !important;  }
@@ -433,4 +440,29 @@ img {
   overflow: hidden;
   text-align: center;
   transition: height .4s ease;
+}
+
+.close-menu-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #3a57e8 !important;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.close-menu-btn.hidden {
+  display: none;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }

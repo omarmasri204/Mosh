@@ -92,3 +92,28 @@ window.addEventListener('resize', () => {
 if (window.innerWidth < 768) {
   lMenu.classList.add('hidden');
 }
+
+// Get the close menu button
+const closeMenuBtn = document.getElementById('close-menu-btn');
+
+// Add an event listener to close the l-menu when the button is clicked
+closeMenuBtn.addEventListener('click', () => {
+  lMenu.classList.add('hidden');
+});
+
+// Modify the existing code to show the close menu button only when the screen size is less than 768px
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 768) {
+    lMenu.classList.add('hidden');
+    closeMenuBtn.classList.remove('hidden');
+  } else {
+    lMenu.classList.remove('hidden');
+    closeMenuBtn.classList.add('hidden');
+  }
+});
+
+// Also, check the screen width on page load
+if (window.innerWidth < 768) {
+  lMenu.classList.add('hidden');
+  closeMenuBtn.classList.remove('hidden');
+}
