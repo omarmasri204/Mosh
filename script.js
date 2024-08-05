@@ -1,8 +1,9 @@
-// Constants for class names and image sources
+// Constants
 const CLASS_SHOW = 'show';
 const CLASS_HIDDEN = 'hidden';
 const CLASS_ARROW_DOWN = 'css-button-arrow-d-sky';
 const CLASS_ARROW_UP = 'css-button-arrow--sky';
+
 const IMAGE_SOURCES = {
   dashboard: 'images/dashboard.png',
   dashboardWhite: 'images/dashboard-w.png',
@@ -52,11 +53,14 @@ function handleButtonMouseEvents(buttonId, iconId, imageSourceWhite, imageSource
 // Initialize event listeners
 document.addEventListener('DOMContentLoaded', () => {
   // Dropdown content and button arrow toggles
-  document.getElementById('usersButton').addEventListener('click', () => {
+  const usersButton = document.getElementById('usersButton');
+  const woButton = document.getElementById('woButton');
+
+  usersButton.addEventListener('click', () => {
     toggleDropdownContent('usersDropdown', 'usersButton', 'woDropdown', 'woButton');
   });
 
-  document.getElementById('woButton').addEventListener('click', () => {
+  woButton.addEventListener('click', () => {
     toggleDropdownContent('woDropdown', 'woButton', 'usersDropdown', 'usersButton');
   });
 
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleButtonMouseEvents('car-status-btn', 'car-status-icon', IMAGE_SOURCES.carInfoWhite, IMAGE_SOURCES.carInfo);
   handleButtonMouseEvents('view-car-list-btn', 'view-car-list-icon', IMAGE_SOURCES.checkCarWhite, IMAGE_SOURCES.checkCar);
 
+  // Toggle menu
   const dropMenuButton = document.querySelector('.drop-menu');
   const slideMenu = document.querySelector('.l-menu');
 
@@ -74,46 +79,56 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Get the element
+// Handle window resize
 const lMenu = document.querySelector('.l-menu');
-// Add an event listener for window resize
-window.addEventListener('resize', () => {
-  // Check if the screen width is less than 768px
-  if (window.innerWidth <= 768) {
-    // Add the hidden class
-    lMenu.classList.add('hidden');
-  } else {
-    // Remove the hidden class
-    lMenu.classList.remove('hidden');
-  }
-});
-
-// Also, check the screen width on page load
-if (window.innerWidth < 768) {
-  lMenu.classList.add('hidden');
-}
-
-// Get the close menu button
 const closeMenuBtn = document.getElementById('close-menu-btn');
 
-// Add an event listener to close the l-menu when the button is clicked
-closeMenuBtn.addEventListener('click', () => {
-  lMenu.classList.add('hidden');
-});
-
-// Modify the existing code to show the close menu button only when the screen size is less than 768px
 window.addEventListener('resize', () => {
   if (window.innerWidth <= 768) {
-    lMenu.classList.add('hidden');
-    closeMenuBtn.classList.remove('hidden');
+    lMenu.classList.add(CLASS_HIDDEN);
+    closeMenuBtn.classList.remove(CLASS_HIDDEN);
   } else {
-    lMenu.classList.remove('hidden');
-    closeMenuBtn.classList.add('hidden');
+    lMenu.classList.remove(CLASS_HIDDEN);
+    closeMenuBtn.classList.add(CLASS_HIDDEN);
   }
 });
 
-// Also, check the screen width on page load
+// Check screen width on page load
 if (window.innerWidth < 768) {
-  lMenu.classList.add('hidden');
-  closeMenuBtn.classList.remove('hidden');
+  lMenu.classList.add(CLASS_HIDDEN);
+  closeMenuBtn.classList.remove(CLASS_HIDDEN);
 }
+
+// Close menu button event listener
+closeMenuBtn.addEventListener('click', () => {
+  lMenu.classList.add(CLASS_HIDDEN);
+});
+
+const addCarBtn = document.getElementById('add-car-btn');
+const addCarWindow = document.getElementById('add-car-window');
+
+addCarBtn.addEventListener('click', () => {
+  addCarWindow.classList.toggle('hidden');
+  addCarWindow.classList.toggle('slide-in');
+});
+
+const currentYear = new Date().getFullYear();
+const minYear = 1890;
+const maxYear = currentYear + 1;
+document.getElementById('car-year').max = maxYear;
+document.getElementById('car-year').min = minYear;
+document.getElementById('car-year').addEventListener('input', (e) => {
+  const year = parseInt(e.target.value, 10);
+  if (year < minYear || year > maxYear) {
+    e.target.setCustomValidity(`Please enter a year between ${minYear} and ${maxYear}`);
+  } else {
+    e.target.setCustomValidity('');
+  }
+});
+
+const addWorkerBtn = document.getElementById('add-worker-btn');
+addWorkerBtn.addEventListener('click', () => {
+  console.log('Add worker button clicked!');
+  const addWorkerWindow = document.getElementById('add-worker-window');
+  addWorkerWindow.classList.toggle('slide-in');
+});

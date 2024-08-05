@@ -4,6 +4,15 @@
   font-weight: bold;
 }
 
+textarea,
+input {
+  font-weight: normal !important;
+  transition: 0.3s;
+  outline: none;
+  border: 2px solid lightgray;
+  border-radius: 3px;
+}
+
 body {
   display: flex;
   flex-direction: row;
@@ -107,7 +116,7 @@ img {
   display: none;
   position: relative;
   min-width: fit-content;
-  z-index: 1;
+  z-index: 0;
   padding: 15px 10px;
   animation: slide-down1 0.4s ease-out;
 }
@@ -333,6 +342,13 @@ img {
   .l-lists button {
     width: 45vw !important;
   }
+
+  .floating-windows {
+    width: fit-content !important;
+    height: 80vh !important;
+    overflow: scroll;
+    z-index: 10;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -360,33 +376,51 @@ img {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 60vw;  
+    width: 60vw;
     animation: slideIn 0.4s forwards;
   }
 
   .drop-menu {
-    visibility: visible !important;  }
+    visibility: visible !important;
+  }
 
-    .l-lists {
-      display: flex;
-      flex-direction: column;
-      align-items: center !important;
-    }
-    
-    .l-lists  button {
-      width: 35vw;
-    }
+  .l-lists {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+  }
 
-    .navbar-brand {
-      font-size: 3vw;
-      padding: 15px;
-      align-self: center;
-    }
+  .l-lists button {
+    width: 35vw;
+  }
+
+  .navbar-brand {
+    font-size: 3vw;
+    padding: 15px;
+    align-self: center;
+  }
+
+  .floating-windows input,
+  .floating-windows textarea {
+    width: 45vw !important;
+  }
+
+  .add-car-form, .add-worker-form {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+  }
+
+ .add-car-form input,
+ .add-car-form textarea,
+ .add-car-form button {
+    grid-column: 1 !important;
+  }
 }
+
 
 @media only screen and (min-width: 769px) {
 
-  /* Styles go here */
   .l-menu {
     width: 25vw;
   }
@@ -410,6 +444,22 @@ img {
   .css-button-arrow-d-sky {
     width: 250px;
   }
+
+  .add-car-form {
+    padding: 10px;
+    gap: 20px !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .floating-windows input {
+    width: 35vw;
+    height: 30px;
+  }
+
+  .add-car-form {
+    margin-top: 10px !important;
+  }
 }
 
 .drop-menu {
@@ -428,6 +478,7 @@ img {
   background-color: #3A57E8;
   transition: 0.25s
 }
+
 .drop-menu i {
   scale: 1.8;
 }
@@ -452,6 +503,12 @@ img {
   cursor: pointer;
 }
 
+.close-menu-btn:hover {
+  color: #FFFFFF;
+  background-color: #3A57E8;
+  transition: 0.25s
+}
+
 .close-menu-btn.hidden {
   display: none;
 }
@@ -461,8 +518,118 @@ img {
     transform: translate(-50%, -50%) scale(0.5);
     opacity: 0;
   }
+
   100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
 }
+
+.floating-windows {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 60vw;
+  height: fit-content;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.floating-windows h2 {
+  padding-top: 20px;
+  width: fit-content;
+  margin: 0 auto;
+  text-decoration-line: underline;
+}
+
+.floating-windows h2,
+.floating-windows form button {
+  color: #3a57e8 !important;
+}
+
+.floating-windows.slide-in {
+  display: block !important;
+  animation: slideIn 0.5s forwards;
+}
+
+.add-car-form {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  gap: 8px;
+}
+
+.floating-windows input {
+  width: 20vw;
+  height: 30px;
+}
+
+input:focus,
+textarea:focus {
+  border: 2px solid #3a57e8;
+}
+
+.add-worker-form {
+  margin-top: 45px;
+  display: grid ;
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  gap: 10px;
+  row-gap: 20px;
+}
+
+
+.add-car-form textarea {
+  grid-column: 2/span 3;
+  height: 70px;
+}
+
+.add-car-form button:hover,
+.add-worker-form button:hover {
+  color: #fff !important;
+  background: #3a57e8;
+}
+
+.add-car-form button,
+.add-worker-form button {
+  padding: 5px 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  border-radius: 5px;
+  z-index: 0;
+  background: #fff;
+  overflow: hidden;
+  border: 2px solid #3a57e8;
+  color: #3a57e8;
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+.add-worker-form select,
+.add-worker-form button {
+  margin-top: 20px;
+}
+
+.add-worker-form select {
+  grid-column: 3/span 2;
+  width: 10vw;
+}
+
+.add-worker-form input[type=file] {
+  padding-left: 4px;
+}
+
+.dropdown-content {
+  opacity: 1;
+}  
