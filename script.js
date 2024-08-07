@@ -113,18 +113,23 @@ addCarBtn.addEventListener('click', () => {
 });
 
 const currentYear = new Date().getFullYear();
-const minYear = 1890;
-const maxYear = currentYear + 1;
-document.getElementById('car-year').max = maxYear;
-document.getElementById('car-year').min = minYear;
+const minYearCar = 1890;
+const maxYearCar = currentYear + 1;
+document.getElementById('car-year').max = maxYearCar;
+document.getElementById('car-year').min = minYearCar;
 document.getElementById('car-year').addEventListener('input', (e) => {
   const year = parseInt(e.target.value, 10);
-  if (year < minYear || year > maxYear) {
-    e.target.setCustomValidity(`Please enter a year between ${minYear} and ${maxYear}`);
+  if (year < minYearCar || year > maxYearCar) {
+    e.target.setCustomValidity(`Please enter a year between ${minYearCar} and ${maxYearCar}`);
   } else {
     e.target.setCustomValidity('');
   }
 });
+
+const maxYearBirth = currentYear - 17;
+const maxDate = `${maxYearBirth}-12`;
+document.getElementById('worker-birthdate').max = maxDate;
+
 
 const addWorkerBtn = document.getElementById('add-worker-btn');
 addWorkerBtn.addEventListener('click', () => {

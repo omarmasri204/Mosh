@@ -73,6 +73,7 @@
           <li><button class="css-button-sliding-to-left-low">Add User</button></li>
           <li><button class="css-button-sliding-to-left-low">Edit Users</button></li>
           <li><button class="css-button-sliding-to-left-low">Users Privilege</button></li>
+          <div class="soon">SOOON ...</div>
         </div>
       </div>
     </ul>
@@ -104,7 +105,7 @@
         <label for="car-model">Model:</label>
         <input type="text" id="car-model" name="car-model">
         <label for="car-year">Year:</label>
-        <input type="number" id="car-year" name="car-year" min="" max="">
+        <input type="number" placeholder="YYYY" id="car-year" name="car-year" min="" max="">
         <label for="car-color">Color:</label>
         <input type="text" id="car-color" name="car-color">
         <label for="car-mileage">Mileage:</label>
@@ -117,7 +118,7 @@
       </form>
     </div>
     <div id="add-worker-window" class="add-worker-window floating-windows hidden">
-      <h2>Add Worker</h2>
+      <h2>Add A New Worker To Your Employees</h2>
       <form id="add-worker-form" class="add-worker-form">
         <label for="worker-name">Name:</label>
         <input type="text" id="worker-name" name="worker-name">
@@ -128,10 +129,10 @@
         <label for="worker-id-number">ID No:</label>
         <input type="number" id="worker-id-number" name="worker-id-number">
         <label for="worker-birthdate">B.date:</label>
-        <input type="date" id="worker-birthdate" name="worker-birthdate">
+        <input type="month" id="worker-birthdate" min="" max="" name="worker-birthdate">
         <label for="worker-CV">CV:</label> 
         <input type="file" id="CV" name="CV">
-        <button type="submit">Add Worker</button>
+        <button type="submit">Add New Worker</button>
       </form>
     </div>
   </div>
