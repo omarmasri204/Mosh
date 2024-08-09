@@ -15,6 +15,12 @@ const IMAGE_SOURCES = {
   checkCarWhite: 'images/Check-car-w.png',
 };
 
+const inputFields = document.querySelectorAll('input');
+
+inputFields.forEach((input) => {
+  input.setAttribute('required', '');
+});
+
 // Function to toggle dropdown content and button arrow
 function toggleDropdownContent(dropdownId, buttonId, otherDropdownId, otherButtonId) {
   const dropdownContent = document.getElementById(dropdownId);
@@ -136,4 +142,142 @@ addWorkerBtn.addEventListener('click', () => {
   console.log('Add worker button clicked!');
   const addWorkerWindow = document.getElementById('add-worker-window');
   addWorkerWindow.classList.toggle('slide-in');
+});
+
+
+// Add close button to add-car-window
+const addCarCloseBtn = document.getElementById('add-car-close-btn');
+addCarCloseBtn.addEventListener('click', () => {
+  addCarWindow.classList.toggle('hidden');
+  addCarWindow.classList.toggle('slide-in');
+});
+
+// Add close button to add-worker-window
+const addWorkerCloseBtn = document.getElementById('add-worker-close-btn');
+const addWorkerWindow = document.getElementById('add-worker-window');
+addWorkerCloseBtn.addEventListener('click', () => {
+  addWorkerWindow.classList.toggle('slide-in');
+});
+
+
+// const carListWindow = document.getElementById('car-list-window');
+// document.getElementById('view-car-list-btn').addEventListener('click', function() {
+//   carListWindow.classList.remove('hidden');
+//   carListWindow.classList.toggle('slide-in');
+// });
+
+
+let cars = [];
+document.getElementById('add-car-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const carMake = document.getElementById('car-make').value;
+  const carModel = document.getElementById('car-model').value;
+  const carYear = document.getElementById('car-year').value;
+  const carColor = document.getElementById('car-color').value;
+  const carMileage = document.getElementById('car-mileage').value;
+  const carOwner = document.getElementById('car-owner').value;
+  const carNotes = document.getElementById('car-notes').value;
+
+  const newCar = {
+    make: carMake,
+    model: carModel,
+    year: carYear,
+    color: carColor,
+    mileage: carMileage,
+    owner: carOwner,
+    notes: carNotes
+  };
+
+  cars.push(newCar);
+
+  populateCarList();
+
+  addCarWindow.classList.toggle('hidden');
+  addCarWindow.classList.toggle('slide-in');
+});
+
+function populateCarList() {
+  document.getElementById('car-list-tbody').innerHTML = ''; // Clear the tbody
+  cars.forEach((car) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${car.make}</td>
+      <td>${car.model}</td>
+      <td>${car.year}</td>
+      <td>${car.color}</td>
+      <td>${car.mileage}</td>
+      <td>${car.owner}</td>
+      <td>${car.notes}</td>
+    `;
+    document.getElementById('car-list-tbody').appendChild(row);
+  });
+}
+
+const carListWindow = document.getElementById('car-list-window');
+
+document.getElementById('view-car-list-btn').addEventListener('click', function() {
+  carListWindow.classList.remove('hidden');
+  carListWindow.classList.toggle('slide-in');
+  populateCarList();
+});
+
+document.getElementById('car-list-close-btn').addEventListener('click', function() {
+  carListWindow.classList.add('hidden');
+  carListWindow.classList.remove('slide-in');
+});
+
+// Worker list
+let workers = [];
+document.getElementById('add-worker-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const workerName = document.getElementById('worker-name').value;
+  const workerBirthdate = document.getElementById('worker-birthdate').value;
+  const workerAddress = document.getElementById('worker-address').value;
+  const workerPhone = document.getElementById('worker-phone').value;
+  const workerId = document.getElementById('worker-id-number').value;
+  const workerCV = document.getElementById('CV').value;
+
+  const newWorker = {
+    name: workerName,
+    phone: workerPhone,
+    address: workerAddress,
+    id: workerId,
+    birthdate: workerBirthdate,
+    notes: workerCV
+  };
+
+  workers.push(newWorker);
+
+  populateWorkerList();
+
+  addWorkerWindow.classList.toggle('slide-in');
+});
+
+function populateWorkerList() {
+  document.getElementById('worker-list-tbody').innerHTML = ''; // Clear the tbody
+  workers.forEach((worker) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${worker.name}</td>
+      <td>${worker.phone}</td>
+      <td>${worker.address}</td>
+      <td>${worker.id}</td>
+      <td>${worker.birthdate}</td>
+      <td>${worker.notes}</td>
+    `;
+    document.getElementById('worker-list-tbody').appendChild(row);
+  });
+}
+
+const workerListWindow = document.getElementById('worker-list-window');
+
+document.getElementById('view-worker-list-btn').addEventListener('click', function() {
+  workerListWindow.classList.remove('hidden');
+  workerListWindow.classList.toggle('slide-in');
+  populateWorkerList();
+});
+
+document.getElementById('worker-list-close-btn').addEventListener('click', function() {
+  workerListWindow.classList.add('hidden');
+  workerListWindow.classList.remove('slide-in');
 });

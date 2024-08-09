@@ -167,7 +167,25 @@
     <button id="close-worker-details-btn">Close</button>
     <button id="delete-worker-btn">Delete</button>
   </div>
-  <script src="script.js"></script>
+  <script src="script.js">
+    // Retrieve the token from localStorage
+  const token = localStorage.getItem("token");
+
+// Use the token to authenticate or authorize the user
+// For example, you can send it with every request to your API
+// or use it to verify the user's identity
+console.log("Token:", token);
+
+// Example: sending the token with a request to your API
+// fetch('/api/protected-endpoint', {
+//   headers: {
+//     Authorization: `Bearer ${token}`,
+//   },
+// })
+//   .then((response) => response.json())
+//   .then((data) => console.log(data))
+//   .catch((error) => console.error(error));
+  </script>
 </body>
 
 </html>

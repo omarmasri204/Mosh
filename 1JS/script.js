@@ -4,6 +4,47 @@ let urlWorker = "https://somar-jaber.serv00.net/api/workers";
 let urlBranches = "https://somar-jaber.serv00.net/api/branches";
 let urlRepairs = "https://somar-jaber.serv00.net/api/repairs";
 
+// script.js
+const token = localStorage.getItem('token');
+
+if (token) {
+  // Token is present, use it to authenticate the user
+  authenticateUser(token);
+} else {
+  // Token is not present, redirect to login page
+  window.location.href = 'login.html';
+}
+
+function authenticateUser(token) {
+  // Send a request to your server to verify the token
+  fetch('/verify-token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ token })
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.valid) {
+      // Token is valid, display the user's data
+      displayUserData();
+    } else {
+      // Token is invalid, redirect to login page
+      window.location.href = 'login.html';
+    }
+  })
+  .catch((error) => {
+    console.error('Error verifying token:', error);
+  });
+}
+
+function displayUserData() {
+  // Display the user's data, e.g. username, appointments, etc.
+  const usernameElement = document.getElementById('username');
+  usernameElement.textContent = 'John Doe'; // Replace with actual username
+}
+
 // 1. Get the username element
 const username = document.getElementById('username');
 

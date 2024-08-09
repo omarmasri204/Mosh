@@ -60,19 +60,21 @@
 			const password = passwordInput.value;
 
 			try {
-				const isAuthenticated = await UI.auth(email, password);
-				if (isAuthenticated) {
-					console.log('Authentication successful!');
-					console.log(localStorage.getItem("token"))
-					// Redirect to a protected page or perform some other action
-					window.location.href = 'index.html';
-				} else {
-					console.log('Authentication failed!');
-				}
-			} catch (error) {
-				console.error('Error authenticating:', error);
-			}
-		});
+      const isAuthenticated = await UI.auth(email, password);
+      if (isAuthenticated) {
+        console.log('Authentication successful!');
+        const token = localStorage.getItem("token");
+        // Store the token in localStorage
+        localStorage.setItem("token", token);
+        // Redirect to a protected page or perform some other action
+        window.location.href = 'index.html';
+      } else {
+        console.log('Authentication failed!');
+      }
+    } catch (error) {
+      console.error('Error authenticating:', error);
+    }
+  });
 		
 	</script>
 </body>
