@@ -159,16 +159,9 @@ addWorkerCloseBtn.addEventListener('click', () => {
   addWorkerWindow.classList.toggle('slide-in');
 });
 
-
-// const carListWindow = document.getElementById('car-list-window');
-// document.getElementById('view-car-list-btn').addEventListener('click', function() {
-//   carListWindow.classList.remove('hidden');
-//   carListWindow.classList.toggle('slide-in');
-// });
-
-
 let cars = [];
-document.getElementById('add-car-form').addEventListener('submit', (e) => {
+addCarForm = document.getElementById('add-car-form');
+addCarForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const carMake = document.getElementById('car-make').value;
   const carModel = document.getElementById('car-model').value;
@@ -194,6 +187,8 @@ document.getElementById('add-car-form').addEventListener('submit', (e) => {
 
   addCarWindow.classList.toggle('hidden');
   addCarWindow.classList.toggle('slide-in');
+
+  addCarForm.reset();
 });
 
 function populateCarList() {
@@ -216,7 +211,7 @@ function populateCarList() {
 const carListWindow = document.getElementById('car-list-window');
 
 document.getElementById('view-car-list-btn').addEventListener('click', function() {
-  carListWindow.classList.remove('hidden');
+  carListWindow.classList.toggle('hidden');
   carListWindow.classList.toggle('slide-in');
   populateCarList();
 });
@@ -228,7 +223,8 @@ document.getElementById('car-list-close-btn').addEventListener('click', function
 
 // Worker list
 let workers = [];
-document.getElementById('add-worker-form').addEventListener('submit', (e) => {
+addWorkerForm = document.getElementById('add-worker-form');
+addWorkerForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const workerName = document.getElementById('worker-name').value;
   const workerBirthdate = document.getElementById('worker-birthdate').value;
@@ -251,6 +247,8 @@ document.getElementById('add-worker-form').addEventListener('submit', (e) => {
   populateWorkerList();
 
   addWorkerWindow.classList.toggle('slide-in');
+
+  addWorkerForm.reset();
 });
 
 function populateWorkerList() {
@@ -272,7 +270,7 @@ function populateWorkerList() {
 const workerListWindow = document.getElementById('worker-list-window');
 
 document.getElementById('view-worker-list-btn').addEventListener('click', function() {
-  workerListWindow.classList.remove('hidden');
+  workerListWindow.classList.toggle('hidden');
   workerListWindow.classList.toggle('slide-in');
   populateWorkerList();
 });
@@ -280,4 +278,14 @@ document.getElementById('view-worker-list-btn').addEventListener('click', functi
 document.getElementById('worker-list-close-btn').addEventListener('click', function() {
   workerListWindow.classList.add('hidden');
   workerListWindow.classList.remove('slide-in');
+});
+
+const dashBtn = document.getElementById('dash-btn');
+const carAnimationDiv = document.getElementById('car-animation');
+
+dashBtn.addEventListener('click', () => {
+  carAnimationDiv.classList.add('bounce');
+  setTimeout(() => {
+    carAnimationDiv.classList.remove('bounce');
+  }, 500); // remove the class after 500ms (same duration as the animation)
 });

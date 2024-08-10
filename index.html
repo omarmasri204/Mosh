@@ -50,8 +50,7 @@
       </div>
 
       <div class="wo-dropdown childs-p1 lists-rc">
-        <button id="woButton" class="css-button-arrow--sky" aria-haspopup="true"
-          aria-expanded="false">
+        <button id="woButton" class="css-button-arrow--sky" aria-haspopup="true" aria-expanded="false">
           <img class="icons icon-p1" src="images/worker.png" alt="icon">
           Workers
         </button>
@@ -63,8 +62,7 @@
       </div>
 
       <div class="user-dropdown childs-p1 lists-rc">
-        <button id="usersButton" class="css-button-arrow--sky" aria-haspopup="true"
-          aria-expanded="false">
+        <button id="usersButton" class="css-button-arrow--sky" aria-haspopup="true" aria-expanded="false">
           <img class="icons icon-p1" src="images/user.png" alt="icon">
           Users
         </button>
@@ -82,16 +80,20 @@
     <nav class="navbar">
       <div class="navbar-brand">Automated Car Fixing Center</div>
       <button class="drop-menu"><i class="gg-menu-boxed"></i></button>
-      <ul class="slide">
-        <li><a href="#">Lorem Ipsum</a></li>
-        <li><a href="#">Lorem Ipsum</a></li>
-        <li><a href="#">Lorem Ipsum</a></li>
-        <li><a href="#">Lorem Ipsum</a></li>
-      </ul>
     </nav>
-    <a href="1JS/index.html" style="font-size: 80px; background-color: yellow;">GO TO JS</a>
-    <div id="sliding-div" style="display: none;">
-      loading ...
+    <div class="car-animation" id="car-animation">
+      <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"></script>
+
+      <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"></script>
+
+      <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"></script>
+      
+      <h2> <b>Dashboard</b> is <br> Coming Soon ...</h2>
+      <dotlottie-player src="https://lottie.host/510a5420-1b9e-43f4-b00e-dc85b82b750a/Xuw6S0ifrq.json"
+        background="transparent" speed="0.8" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
     </div>
   </div>
 
@@ -105,7 +107,7 @@
         <label for="car-model">Model:</label>
         <input type="text" id="car-model" name="car-model">
         <label for="car-year">Year:</label>
-        <input type="number" placeholder="YYYY" id="car-year" name="car-year" min="" max="">
+        <input type="number" placeholder="YYYY" id="car-year" name="car-year" min="" max="" value="2000">
         <label for="car-color">Color:</label>
         <input type="text" id="car-color" name="car-color">
         <label for="car-mileage">Mileage:</label>
@@ -128,15 +130,16 @@
         <label for="worker-adress">Address:</label>
         <input type="text" id="worker-address" name="worker-address">
         <label for="worker-id-number">ID No:</label>
-        <input type="number" id="worker-id-number" name="worker-id-number">
+        <input type="number" id="worker-id-number" name="worker-id-number" size="11">
         <label for="worker-birthdate">B.date:</label>
         <input type="month" id="worker-birthdate" min="" max="" name="worker-birthdate">
-        <label for="worker-CV">CV:</label> 
+        <label for="worker-CV">CV:</label>
         <input type="file" id="CV" name="CV">
         <button type="submit">Add New Worker</button>
       </form>
     </div>
     <div id="car-list-window" class="car-list-window floating-windows hidden">
+      <button id="generate-random-data-btn">Generate Random Data</button>
       <button id="car-list-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Car List</h2>
       <table id="car-list-table" class="car-list-table">
@@ -176,6 +179,7 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="random.js"></script>
 
 </body>
 

@@ -93,6 +93,7 @@ img {
   border-right: 5px solid rgba(28, 110, 164, 0.23);
   border-radius: 0px 10px 10px 0px;
   background-color: #fff;
+  z-index: 99;
 }
 
 .l-lists {
@@ -736,4 +737,69 @@ textarea:focus {
   text-align: left;
   background-color: #3a57e8; /* Changed to match your primary color */
   color: white;
+}
+
+.car-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20vh;
+  transition: transform 0.4s ease-in-out;
+}
+
+.car-animation  b {
+  font-weight: bolder;
+}
+
+.car-animation dotlottie-player {
+  width: 50vw !important;
+  height: 30vh !important;
+}
+
+.car-animation h2 {
+  padding: 10px;
+  color: #3a57e8;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.bounce {
+  animation: bounce 0.4s ease-in-out;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-10px);
+  }
+  20% {
+    transform: translateY(-15px);
+  }
+  30% {
+    transform: translateY(-20px);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(10px);
+  }
+  70% {
+    transform: translateY(15px);
+  }
+  80% {
+    transform: translateY(20px);
+  }
+  90% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

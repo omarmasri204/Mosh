@@ -35,15 +35,48 @@
 			background-color: #3e8e41;
 		}
 	</style>
+		  <script src="./assets/UI.js"></script>
+
 </head>
 <body>
 	<div class="login-form">
 		<h2>Login</h2>
-		<form>
-			<input type="text" placeholder="Username" required>
-			<input type="password" placeholder="Password" required>
-			<input type="submit" value="Login">
+		<form class="login-form" id="login-form">
+			<input type="text" placeholder="Username" id="email" required>
+			<input type="password" placeholder="Password" id="password" required>
+			<input type="submit" value="Login" id="L-Btn">
 		</form>
 	</div>
+
+	<script>
+		const emailInput = document.getElementById('email');
+		const passwordInput = document.getElementById('password');
+		const loginButton = document.getElementById('L-Btn');
+		const loginForm = document.querySelector('.login-form');
+
+		loginForm.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const email = emailInput.value;
+			const password = passwordInput.value;
+
+			try {
+      const isAuthenticated = await UI.auth(email, password);
+      if (isAuthenticated) {
+        console.log('Authentication successful!');
+        const token = localStorage.getItem("token");
+        // Store the token in localStorage
+        localStorage.setItem("token", token);
+        // Redirect to a protected page or perform some other action
+        window.location.href = 'index.html';
+      } else {
+        console.log('Authentication failed!');
+      }
+    } catch (error) {
+      console.error('Error authenticating:', error);
+    }
+  });
+		
+	</script>
+
 </body>
 </html>
