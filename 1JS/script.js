@@ -180,8 +180,20 @@ viewCarListBtn.addEventListener('click', () => {
   // 42. Add the 'lide-in' class to the car list window
   carListWindow.classList.add('slide-in');
 
+  const token = localStorage.getItem('token');
+
+// ...
+
+// Add the token to the Authorization header
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${token}`
+};
   // Fetch data from the urlCars API
-  fetch(urlCars)
+  fetch(urlCars, {
+    method: 'GET',
+    headers: headers
+  })
    .then(response => response.json())
    .then(data => {
       // Clear the car list body

@@ -80,6 +80,10 @@
       <div class="navbar-brand">Automated Car Fixing Center</div>
       <button class="drop-menu"><i class="gg-menu-boxed"></i></button>
     </nav>
+
+    <button id="clear-local-storage-btn" class="clear-local-storage-btn storage-btn">Clear Local Storage</button>
+    <button id="view-local-storage-btn" class="view-local-storage-btn storage-btn">View Local Storage in New Page</button>
+
     <div class="car-animation" id="car-animation">
       <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
         type="module"></script>
@@ -90,7 +94,7 @@
       <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
         type="module"></script>
       
-      <h2> <b>Dashboard</b> is <br> Coming Soon ...</h2>
+      <h2> <b>Dashboard</b><br> is Coming Soon ...</h2>
       <dotlottie-player src="https://lottie.host/510a5420-1b9e-43f4-b00e-dc85b82b750a/Xuw6S0ifrq.json"
         background="transparent" speed="0.8" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
     </div>
@@ -100,7 +104,9 @@
     <div id="add-car-window" class="add-car-window floating-windows hidden">
       <button id="add-car-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Add A New Car To The Workshop</h2>
-      <form id="add-car-form" class="add-car-form">
+      <form id="add-car-form" class="add-car-form" method="post">
+        <label for="car-plate-number" class="plate-no-label">Plate Number:</label>
+        <input type="text" id="car-plate-number" name="car-plate-number" class="plate-no">
         <label for="car-make">Make:</label>
         <input type="text" id="car-make" name="car-make">
         <label for="car-model">Model:</label>
@@ -115,13 +121,13 @@
         <input type="text" id="car-owner" name="car-owner">
         <label for="car-notes">Notes:</label>
         <textarea id="car-notes" name="car-notes"></textarea>
-        <button type="submit">Add Car</button>
+        <button type="submit" class="main-btn">Add Car</button>
       </form>
     </div>
     <div id="add-worker-window" class="add-worker-window floating-windows hidden">
       <button id="add-worker-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Add A New Worker</h2>
-      <form id="add-worker-form" class="add-worker-form">
+      <form id="add-worker-form" class="add-worker-form" method="post"> 
         <label for="worker-name">Name:</label>
         <input type="text" id="worker-name" name="worker-name">
         <label for="worker-phone">Phone:</label>
@@ -134,7 +140,7 @@
         <input type="month" id="worker-birthdate" min="" max="" name="worker-birthdate">
         <label for="worker-CV">CV:</label>
         <input type="file" id="CV" name="CV">
-        <button type="submit">Add New Worker</button>
+        <button type="submit" class="main-btn">Add New Worker</button>
       </form>
     </div>
     <div id="car-list-window" class="car-list-window floating-windows hidden">
@@ -144,6 +150,7 @@
       <table id="car-list-table" class="car-list-table">
         <thead>
           <tr>
+            <th>Plate Number</th>
             <th>Make</th>
             <th>Model</th>
             <th>Year</th>
@@ -174,6 +181,15 @@
         <tbody id="worker-list-tbody">
         </tbody>
       </table>
+    </div>
+    <div id="check-car-status-window" class="check-car-status-window floating-windows hidden">
+      <button id="check-car-status-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
+      <h2>Check Car Status</h2>
+      <form id="check-car-status-form" class="check-car-status-form" method="post">
+        <label for="car-plate-number">Plate Number:</label>
+        <input type="text" id="check-car-plate-number" name="car-plate-number" class="plate-no">
+        <button type="submit" class="main-btn">Check Car</button>
+      </form>
     </div>
   </div>
 

@@ -15,6 +15,8 @@ const IMAGE_SOURCES = {
   checkCarWhite: 'images/Check-car-w.png',
 };
 
+let currentFloatingWindow = null;
+
 const inputFields = document.querySelectorAll('input');
 
 inputFields.forEach((input) => {
@@ -114,8 +116,18 @@ const addCarBtn = document.getElementById('add-car-btn');
 const addCarWindow = document.getElementById('add-car-window');
 
 addCarBtn.addEventListener('click', () => {
-  addCarWindow.classList.toggle('hidden');
-  addCarWindow.classList.toggle('slide-in');
+  if (currentFloatingWindow === addCarWindow) {
+    addCarWindow.classList.toggle('hidden');
+    addCarWindow.classList.toggle('slide-in');
+  } else {
+    if (currentFloatingWindow) {
+      currentFloatingWindow.classList.add('hidden');
+      currentFloatingWindow.classList.remove('slide-in');
+    }
+    currentFloatingWindow = addCarWindow;
+    addCarWindow.classList.toggle('hidden');
+    addCarWindow.classList.toggle('slide-in');
+  }
 });
 
 const currentYear = new Date().getFullYear();
@@ -139,9 +151,18 @@ document.getElementById('worker-birthdate').max = maxDate;
 
 const addWorkerBtn = document.getElementById('add-worker-btn');
 addWorkerBtn.addEventListener('click', () => {
-  console.log('Add worker button clicked!');
-  const addWorkerWindow = document.getElementById('add-worker-window');
-  addWorkerWindow.classList.toggle('slide-in');
+  if (currentFloatingWindow === addWorkerWindow) {
+    addWorkerWindow.classList.toggle('hidden');
+    addWorkerWindow.classList.toggle('slide-in');
+  } else {
+    if (currentFloatingWindow) {
+      currentFloatingWindow.classList.add('hidden');
+      currentFloatingWindow.classList.remove('slide-in');
+    }
+    currentFloatingWindow = addWorkerWindow;
+    addWorkerWindow.classList.toggle('hidden');
+    addWorkerWindow.classList.toggle('slide-in');
+  }
 });
 
 
@@ -156,6 +177,7 @@ addCarCloseBtn.addEventListener('click', () => {
 const addWorkerCloseBtn = document.getElementById('add-worker-close-btn');
 const addWorkerWindow = document.getElementById('add-worker-window');
 addWorkerCloseBtn.addEventListener('click', () => {
+  addWorkerWindow.classList.toggle('hidden');
   addWorkerWindow.classList.toggle('slide-in');
 });
 
@@ -163,6 +185,7 @@ let cars = [];
 addCarForm = document.getElementById('add-car-form');
 addCarForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  const carPlateNumber = document.getElementById('car-plate-number').value;
   const carMake = document.getElementById('car-make').value;
   const carModel = document.getElementById('car-model').value;
   const carYear = document.getElementById('car-year').value;
@@ -171,7 +194,13 @@ addCarForm.addEventListener('submit', (e) => {
   const carOwner = document.getElementById('car-owner').value;
   const carNotes = document.getElementById('car-notes').value;
 
+  if (checkPlateNumberExists(carPlateNumber)) {
+    alert('Car plate number already exists!');
+    return;
+  }
+
   const newCar = {
+    plateNumber: carPlateNumber,
     make: carMake,
     model: carModel,
     year: carYear,
@@ -181,21 +210,39 @@ addCarForm.addEventListener('submit', (e) => {
     notes: carNotes
   };
 
+  // Store the new car in local storage
+const carData = JSON.parse(localStorage.getItem('carData')) || [];
+carData.push(newCar);
+localStorage.setItem('carData', JSON.stringify(carData));
+
   cars.push(newCar);
 
   populateCarList();
 
-  addCarWindow.classList.toggle('hidden');
-  addCarWindow.classList.toggle('slide-in');
+  addCarWindow.classList.add('hidden');
+  addCarWindow.classList.remove('slide-in');
 
   addCarForm.reset();
 });
+
+
+function checkPlateNumberExists(plateNumber) {
+  const storedCarData = localStorage.getItem('carData');
+  if (storedCarData) {
+    const carData = JSON.parse(storedCarData);
+    if (carData.some((car) => car.plateNumber === plateNumber)) {
+      return true;
+    }
+  }
+  return cars.some((car) => car.plateNumber === plateNumber);
+}
 
 function populateCarList() {
   document.getElementById('car-list-tbody').innerHTML = ''; // Clear the tbody
   cars.forEach((car) => {
     const row = document.createElement('tr');
     row.innerHTML = `
+        <td>${car.plateNumber}</td>
       <td>${car.make}</td>
       <td>${car.model}</td>
       <td>${car.year}</td>
@@ -211,14 +258,42 @@ function populateCarList() {
 const carListWindow = document.getElementById('car-list-window');
 
 document.getElementById('view-car-list-btn').addEventListener('click', function() {
-  carListWindow.classList.toggle('hidden');
-  carListWindow.classList.toggle('slide-in');
-  populateCarList();
+  if (currentFloatingWindow === carListWindow) {
+    carListWindow.classList.toggle('hidden');
+    carListWindow.classList.toggle('slide-in');
+  } else {
+    if (currentFloatingWindow) {
+      currentFloatingWindow.classList.add('hidden');
+      currentFloatingWindow.classList.remove('slide-in');
+    }
+    currentFloatingWindow = carListWindow;
+    carListWindow.classList.toggle('hidden');
+    carListWindow.classList.toggle('slide-in');
+    populateCarList();
+  }
+  const storedCarData = localStorage.getItem('carData');
+  if (storedCarData) {
+    const carData = JSON.parse(storedCarData);
+    carData.forEach((car) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+      <td>${car.plateNumber}</td> <!-- Add plate number column -->
+        <td>${car.make}</td>
+        <td>${car.model}</td>
+        <td>${car.year}</td>
+        <td>${car.color}</td>
+        <td>${car.mileage}</td>
+        <td>${car.owner}</td>
+        <td>${car.notes}</td>
+      `;
+      carListTableBody.appendChild(row);
+    });
+  }
 });
 
 document.getElementById('car-list-close-btn').addEventListener('click', function() {
-  carListWindow.classList.add('hidden');
-  carListWindow.classList.remove('slide-in');
+  carListWindow.classList.toggle('hidden');
+  carListWindow.classList.toggle('slide-in');
 });
 
 // Worker list
@@ -242,42 +317,61 @@ addWorkerForm.addEventListener('submit', (e) => {
     notes: workerCV
   };
 
+  // Store the new worker in local storage
+  const workerData = JSON.parse(localStorage.getItem('workerData')) || [];
+  workerData.push(newWorker);
+  localStorage.setItem('workerData', JSON.stringify(workerData));
+
   workers.push(newWorker);
 
   populateWorkerList();
 
   addWorkerWindow.classList.toggle('slide-in');
-
   addWorkerForm.reset();
+addWorkerWindow.classList.toggle('hidden');
 });
 
 function populateWorkerList() {
   document.getElementById('worker-list-tbody').innerHTML = ''; // Clear the tbody
-  workers.forEach((worker) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${worker.name}</td>
-      <td>${worker.phone}</td>
-      <td>${worker.address}</td>
-      <td>${worker.id}</td>
-      <td>${worker.birthdate}</td>
-      <td>${worker.notes}</td>
-    `;
-    document.getElementById('worker-list-tbody').appendChild(row);
-  });
+  const storedWorkerData = localStorage.getItem('workerData');
+  if (storedWorkerData) {
+    const workerData = JSON.parse(storedWorkerData);
+    workerData.forEach((worker) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${worker.name}</td>
+        <td>${worker.phone}</td>
+        <td>${worker.address}</td>
+        <td>${worker.id}</td>
+        <td>${worker.birthdate}</td>
+        <td>${worker.notes}</td>
+      `;
+      document.getElementById('worker-list-tbody').appendChild(row);
+    });
+  }
 }
 
 const workerListWindow = document.getElementById('worker-list-window');
 
 document.getElementById('view-worker-list-btn').addEventListener('click', function() {
-  workerListWindow.classList.toggle('hidden');
-  workerListWindow.classList.toggle('slide-in');
-  populateWorkerList();
+  if (currentFloatingWindow === workerListWindow) {
+    workerListWindow.classList.toggle('hidden');
+    workerListWindow.classList.toggle('slide-in');
+  } else {
+    if (currentFloatingWindow) {
+      currentFloatingWindow.classList.add('hidden');
+      currentFloatingWindow.classList.remove('slide-in');
+    }
+    currentFloatingWindow = workerListWindow;
+    workerListWindow.classList.toggle('hidden');
+    workerListWindow.classList.toggle('slide-in');
+    populateWorkerList();
+  }
 });
 
 document.getElementById('worker-list-close-btn').addEventListener('click', function() {
-  workerListWindow.classList.add('hidden');
-  workerListWindow.classList.remove('slide-in');
+  workerListWindow.classList.toggle('hidden');
+  workerListWindow.classList.toggle('slide-in');
 });
 
 const dashBtn = document.getElementById('dash-btn');
@@ -289,3 +383,58 @@ dashBtn.addEventListener('click', () => {
     carAnimationDiv.classList.remove('bounce');
   }, 500); // remove the class after 500ms (same duration as the animation)
 });
+
+
+document.getElementById('clear-local-storage-btn').addEventListener('click', () => {
+  localStorage.clear();
+  alert('Local storage cleared!');
+});
+
+document.getElementById('view-local-storage-btn').addEventListener('click', () => {
+  const localStorageData = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    localStorageData[key] = localStorage.getItem(key);
+  }
+  const localStorageString = JSON.stringify(localStorageData, null, 2);
+  const newPage = window.open('', '_blank');
+  newPage.document.write(`<html><body><pre>${localStorageString}</pre></body></html>`);
+  newPage.document.close();
+});
+
+checkCarStatusWindow = document.getElementById('check-car-status-window');
+document.getElementById('car-status-btn').addEventListener('click', () => {
+  if (currentFloatingWindow === checkCarStatusWindow) {
+    checkCarStatusWindow.classList.toggle('hidden');
+    checkCarStatusWindow.classList.toggle('slide-in');
+  } else {
+    if (currentFloatingWindow) {
+      currentFloatingWindow.classList.add('hidden');
+      currentFloatingWindow.classList.remove('slide-in');
+    }
+    currentFloatingWindow = checkCarStatusWindow;
+    checkCarStatusWindow.classList.toggle('hidden');
+    checkCarStatusWindow.classList.toggle('slide-in');
+  }
+});
+
+document.getElementById('check-car-status-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const carPlateNumber = document.getElementById('check-car-plate-number').value;
+  const storedCarData = localStorage.getItem('carData');
+  const carData = JSON.parse(storedCarData) || [];
+
+  const matchingCar = carData.find((car) => car.plateNumber === carPlateNumber);
+
+  if (matchingCar) {
+    alert('The car is still fixing.');
+  } else {
+    alert('The car is with its owner.');
+  }
+});
+  // Close the window after submitting the form
+  document.getElementById('check-car-status-close-btn').addEventListener('click', () => {
+    document.getElementById('check-car-status-window').classList.toggle('hidden');
+    document.getElementById('check-car-status-window').classList.toggle('slide-in');
+  });

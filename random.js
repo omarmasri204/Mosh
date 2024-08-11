@@ -7,6 +7,7 @@ function generateRandomCarData() {
   const carData = [];
   for (let i = 0; i < 20; i++) { // Generate 20 random cars
     carData.push({
+        plateNumber: getRandomPlateNumber(), // Add plate number
       make: getRandomCarMake(),
       model: getRandomCarModel(),
       year: getRandomYear(),
@@ -52,9 +53,25 @@ function getRandomNotes() {
   return 'Random notes ' + Math.floor(Math.random() * 100);
 }
 
+const plateNumbers = new Set(); // Store generated plate numbers
+
+function getRandomPlateNumber() {
+  let plateNumber;
+  do {
+    plateNumber = '';
+    for (let i = 0; i < 6; i++) {
+      plateNumber += Math.floor(Math.random() * 10);
+    }
+  } while (plateNumbers.has(plateNumber)); // Check if plate number already exists
+  plateNumbers.add(plateNumber); // Add plate number to the set
+  return plateNumber;
+}
+
 // Event listener for the button
 generateRandomDataBtn.addEventListener('click', () => {
   const carData = generateRandomCarData();
+
+  localStorage.setItem('carData', JSON.stringify(carData));
 
   // Clear the tables
   carListTableBody.innerHTML = '';
@@ -63,6 +80,7 @@ generateRandomDataBtn.addEventListener('click', () => {
   carData.forEach((car) => {
     const row = document.createElement('tr');
     row.innerHTML = `
+    <td>${car.plateNumber}</td> <!-- Add plate number column -->
       <td>${car.make}</td>
       <td>${car.model}</td>
       <td>${car.year}</td>
@@ -74,3 +92,24 @@ generateRandomDataBtn.addEventListener('click', () => {
     carListTableBody.appendChild(row);
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const storedCarData = localStorage.getItem('carData');
+    if (storedCarData) {
+      const carData = JSON.parse(storedCarData);
+      carData.forEach((car) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${car.plateNumber}</td> <!-- Add plate number column -->
+          <td>${car.make}</td>
+          <td>${car.model}</td>
+          <td>${car.year}</td>
+          <td>${car.color}</td>
+          <td>${car.mileage}</td>
+          <td>${car.owner}</td>
+          <td>${car.notes}</td>
+        `;
+        carListTableBody.appendChild(row);
+      });
+    }
+  });

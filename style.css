@@ -15,6 +15,10 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+textarea {
+  resize: none;
+}
+
 textarea,
 input {
   font-weight: normal !important;
@@ -93,7 +97,6 @@ img {
   border-right: 5px solid rgba(28, 110, 164, 0.23);
   border-radius: 0px 10px 10px 0px;
   background-color: #fff;
-  z-index: 99;
 }
 
 .l-lists {
@@ -407,6 +410,7 @@ img {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 60vw;
     animation: slideIn 0.4s forwards;
+    z-index: 1;
   }
 
   .drop-menu {
@@ -427,6 +431,10 @@ img {
     font-size: 3vw;
     padding: 15px;
     align-self: center;
+  }
+
+  .floating-windows {
+    z-index: 2;
   }
 
   .floating-windows input,
@@ -603,7 +611,7 @@ img {
 }
 
 .add-car-form {
-  margin-top: 60px;
+  margin-top: 30px;
   display: grid;
   grid-template-columns: auto auto auto auto;
   justify-content: center;
@@ -641,14 +649,18 @@ textarea:focus {
   height: 70px;
 }
 
-.add-car-form button:hover,
-.add-worker-form button:hover {
+.add-car-form .plate-no-label,
+.add-car-form .plate-no {
+  grid-column: 1/ -1;
+  justify-self: center;
+}
+
+.main-btn:hover {
   color: #fff !important;
   background: #3a57e8;
 }
 
-.add-car-form button,
-.add-worker-form button {
+.main-btn {
   padding: 5px 8px;
   margin-top: 15px;
   cursor: pointer;
@@ -763,9 +775,10 @@ textarea:focus {
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  background-color: rgb(232, 229, 229);
 }
 .bounce {
-  animation: bounce 0.4s ease-in-out;
+  animation: bounce 0.4s ease-in-out !important;
 }
 
 @keyframes bounce {
@@ -802,4 +815,17 @@ textarea:focus {
   100% {
     transform: translateY(0);
   }
+}
+
+.storage-btn {
+  color: white;
+}
+
+.check-car-status-form {
+  margin-top: 30px;
+  display: grid;
+  justify-items: center;
+}
+.check-car-status-form button{
+  margin-top: 30px;
 }
