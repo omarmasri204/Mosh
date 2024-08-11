@@ -239,20 +239,24 @@ function checkPlateNumberExists(plateNumber) {
 
 function populateCarList() {
   document.getElementById('car-list-tbody').innerHTML = ''; // Clear the tbody
-  cars.forEach((car) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
+  const storedCarData = localStorage.getItem('carData');
+  if (storedCarData) {
+    const carData = JSON.parse(storedCarData);
+    carData.forEach((car) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
         <td>${car.plateNumber}</td>
-      <td>${car.make}</td>
-      <td>${car.model}</td>
-      <td>${car.year}</td>
-      <td>${car.color}</td>
-      <td>${car.mileage}</td>
-      <td>${car.owner}</td>
-      <td>${car.notes}</td>
-    `;
-    document.getElementById('car-list-tbody').appendChild(row);
-  });
+        <td>${car.make}</td>
+        <td>${car.model}</td>
+        <td>${car.year}</td>
+        <td>${car.color}</td>
+        <td>${car.mileage}</td>
+        <td>${car.owner}</td>
+        <td>${car.notes}</td>
+      `;
+      document.getElementById('car-list-tbody').appendChild(row);
+    });
+  }
 }
 
 const carListWindow = document.getElementById('car-list-window');
@@ -271,24 +275,6 @@ document.getElementById('view-car-list-btn').addEventListener('click', function(
     carListWindow.classList.toggle('slide-in');
     populateCarList();
   }
-  const storedCarData = localStorage.getItem('carData');
-  if (storedCarData) {
-    const carData = JSON.parse(storedCarData);
-    carData.forEach((car) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-      <td>${car.plateNumber}</td> <!-- Add plate number column -->
-        <td>${car.make}</td>
-        <td>${car.model}</td>
-        <td>${car.year}</td>
-        <td>${car.color}</td>
-        <td>${car.mileage}</td>
-        <td>${car.owner}</td>
-        <td>${car.notes}</td>
-      `;
-      carListTableBody.appendChild(row);
-    });
-  }
 });
 
 document.getElementById('car-list-close-btn').addEventListener('click', function() {
@@ -299,38 +285,63 @@ document.getElementById('car-list-close-btn').addEventListener('click', function
 // Worker list
 let workers = [];
 addWorkerForm = document.getElementById('add-worker-form');
-addWorkerForm.addEventListener('submit', (e) => {
+addCarSubmit = document.getElementById('add-car-submit')
+addCarSubmit.addEventListener('click', (e) => {
   e.preventDefault();
-  const workerName = document.getElementById('worker-name').value;
-  const workerBirthdate = document.getElementById('worker-birthdate').value;
-  const workerAddress = document.getElementById('worker-address').value;
-  const workerPhone = document.getElementById('worker-phone').value;
-  const workerId = document.getElementById('worker-id-number').value;
-  const workerCV = document.getElementById('CV').value;
 
-  const newWorker = {
-    name: workerName,
-    phone: workerPhone,
-    address: workerAddress,
-    id: workerId,
-    birthdate: workerBirthdate,
-    notes: workerCV
-  };
+  const workerIdNumberInput = document.getElementById('worker-id-number');
+  const workerIdNumberValue = workerIdNumberInput.value;
 
-  // Store the new worker in local storage
-  const workerData = JSON.parse(localStorage.getItem('workerData')) || [];
-  workerData.push(newWorker);
-  localStorage.setItem('workerData', JSON.stringify(workerData));
+  if (!workerIdNumberValue.match(/^[0-9]{11}$/)) {
+    e.preventDefault();
+    alert('Worker ID number must be exactly 11 digits');
+  }
+  else {
+    const storedWorkerData = localStorage.getItem('workerData');
+    const workerData = JSON.parse(storedWorkerData) || [];
 
-  workers.push(newWorker);
+    const existingWorker = workerData.find((worker) => worker.id === workerIdNumberValue);
 
-  populateWorkerList();
-
-  addWorkerWindow.classList.toggle('slide-in');
-  addWorkerForm.reset();
-addWorkerWindow.classList.toggle('hidden');
+    if (existingWorker) {
+      e.preventDefault();
+      alert('Worker ID number already exists!');
+    } else {
+      const workerName = document.getElementById('worker-name').value;
+      const workerBirthdate = document.getElementById('worker-birthdate').value;
+      const workerAddress = document.getElementById('worker-address').value;
+      const workerPhone = document.getElementById('worker-phone').value;
+      const workerId = document.getElementById('worker-id-number').value;
+      const workerCV = document.getElementById('CV').value;
+    
+      const newWorker = {
+        name: workerName,
+        phone: workerPhone,
+        address: workerAddress,
+        id: workerId,
+        birthdate: workerBirthdate,
+        notes: workerCV
+      };
+    
+      // Store the new worker in local storage
+      const workerData = JSON.parse(localStorage.getItem('workerData')) || [];
+      workerData.push(newWorker);
+      localStorage.setItem('workerData', JSON.stringify(workerData));
+    
+      workers.push(newWorker);
+    
+      populateWorkerList();
+    
+      addWorkerWindow.classList.toggle('slide-in');
+      addWorkerWindow.classList.toggle('hidden');
+    
+      addWorkerForm.reset();
+    } 
+     
+  }
 });
 
+const UpdateWorkerForm = document.getElementById('update-worker-form');
+const UpdateWorkerWindow = document.getElementById('update-worker-window');
 function populateWorkerList() {
   document.getElementById('worker-list-tbody').innerHTML = ''; // Clear the tbody
   const storedWorkerData = localStorage.getItem('workerData');
@@ -346,6 +357,59 @@ function populateWorkerList() {
         <td>${worker.birthdate}</td>
         <td>${worker.notes}</td>
       `;
+      row.addEventListener('dblclick', () => {
+        console.log(worker)
+        inputFields.forEach((input) => {
+          input.removeAttribute('required', '');
+        });
+        // Open the add worker window and fill the form with the worker's data
+        UpdateWorkerWindow.classList.toggle('hidden');
+        UpdateWorkerWindow.classList.toggle('slide-in');
+        workerListWindow.classList.toggle('hidden');
+        workerListWindow.classList.toggle('slide-in');
+        document.getElementById('updt-worker-id-number').setAttribute('disabled', true);
+        document.getElementById('updt-CV').setAttribute('disabled', true);
+
+
+        document.getElementById('updt-worker-name').value = worker.name;
+        document.getElementById('updt-worker-phone').value = worker.phone;
+        document.getElementById('updt-worker-address').value = worker.address;
+        document.getElementById('updt-worker-id-number').value = worker.id;
+        document.getElementById('updt-worker-birthdate').value = worker.birthdate;
+        
+
+        // Add an update button to the form
+        UpdateWorkerForm.addEventListener('submit', () => {
+          event.preventDefault();
+          // Update the worker data
+          
+          worker.name = document.getElementById('updt-worker-name').value;
+          worker.phone = document.getElementById('updt-worker-phone').value;
+          worker.address = document.getElementById('updt-worker-address').value;
+          // worker.id = document.getElementById('updt-worker-id-number').value;
+          worker.birthdate = document.getElementById('updt-worker-birthdate').value;
+
+          // Update the local storage
+          const workerData = JSON.parse(localStorage.getItem('workerData'));
+          const index = workerData.findIndex((w) => w.id === worker.id);
+          workerData[index] = worker;
+          localStorage.setItem('workerData', JSON.stringify(workerData));
+
+          // Close the add worker window
+          UpdateWorkerWindow.classList.add('hidden');
+          UpdateWorkerWindow.classList.remove('slide-in');
+          
+          // Refresh the worker list
+          populateWorkerList();
+
+          UpdateWorkerForm.reset();
+
+          inputFields.forEach((input) => {
+            input.setAttribute('required', '');
+          });
+          window.location.href = '/index.html';
+        });
+      });
       document.getElementById('worker-list-tbody').appendChild(row);
     });
   }
@@ -374,6 +438,11 @@ document.getElementById('worker-list-close-btn').addEventListener('click', funct
   workerListWindow.classList.toggle('slide-in');
 });
 
+document.getElementById('update-worker-close-btn').addEventListener('click', function() {
+  UpdateWorkerWindow.classList.toggle('hidden');
+  UpdateWorkerWindow.classList.toggle('slide-in');
+});
+
 const dashBtn = document.getElementById('dash-btn');
 const carAnimationDiv = document.getElementById('car-animation');
 
@@ -386,8 +455,11 @@ dashBtn.addEventListener('click', () => {
 
 
 document.getElementById('clear-local-storage-btn').addEventListener('click', () => {
-  localStorage.clear();
-  alert('Local storage cleared!');
+  if (confirm("This will delete/overwrite old data from local storage. Are you sure?")) {
+    localStorage.clear();
+    location.reload();
+    alert('Local storage cleared!');
+  }
 });
 
 document.getElementById('view-local-storage-btn').addEventListener('click', () => {

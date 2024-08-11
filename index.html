@@ -55,7 +55,6 @@
         </button>
         <div id="woDropdown" class="dropdown-content dropdown-r lists-rl hide" aria-labelledby="usersButton">
           <li><button id="add-worker-btn" class="css-button-sliding-to-left-low">Add Worker</button></li>
-          <li><button class="css-button-sliding-to-left-low">Edit Workers</button></li>
           <li><button id="view-worker-list-btn" class="css-button-sliding-to-left-low">Workers List</button></li>
         </div>
       </div>
@@ -69,7 +68,6 @@
           <li><button class="css-button-sliding-to-left-low">Add User</button></li>
           <li><button class="css-button-sliding-to-left-low">Edit Users</button></li>
           <li><button class="css-button-sliding-to-left-low">Users Privilege</button></li>
-          <div class="soon">SOOON ...</div>
         </div>
       </div>
     </ul>
@@ -98,6 +96,19 @@
       <dotlottie-player src="https://lottie.host/510a5420-1b9e-43f4-b00e-dc85b82b750a/Xuw6S0ifrq.json"
         background="transparent" speed="0.8" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
     </div>
+
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+</ul>
   </div>
 
   <div>
@@ -116,7 +127,7 @@
         <label for="car-color">Color:</label>
         <input type="text" id="car-color" name="car-color">
         <label for="car-mileage">Mileage:</label>
-        <input type="number" id="car-mileage" name="car-mileage">
+        <input type="number" id="car-mileage" name="car-mileage" min="0">
         <label for="car-owner">Owner:</label>
         <input type="text" id="car-owner" name="car-owner">
         <label for="car-notes">Notes:</label>
@@ -127,20 +138,39 @@
     <div id="add-worker-window" class="add-worker-window floating-windows hidden">
       <button id="add-worker-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Add A New Worker</h2>
-      <form id="add-worker-form" class="add-worker-form" method="post"> 
+      <form id="add-worker-form" class="add-worker-form workers-forms" method="post"> 
         <label for="worker-name">Name:</label>
         <input type="text" id="worker-name" name="worker-name">
         <label for="worker-phone">Phone:</label>
         <input type="tel" id="worker-phone" name="worker-phone">
-        <label for="worker-adress">Address:</label>
+        <label for="worker-address">Address:</label>
         <input type="text" id="worker-address" name="worker-address">
         <label for="worker-id-number">ID No:</label>
-        <input type="number" id="worker-id-number" name="worker-id-number" size="11">
+        <input type="number" id="worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11" maxlength="11">
         <label for="worker-birthdate">B.date:</label>
         <input type="month" id="worker-birthdate" min="" max="" name="worker-birthdate">
-        <label for="worker-CV">CV:</label>
+        <label for="CV">CV:</label>
         <input type="file" id="CV" name="CV">
-        <button type="submit" class="main-btn">Add New Worker</button>
+        <button type="submit" class="main-btn" id="add-car-submit">Add New Worker</button>
+      </form>
+    </div>
+    <div id="update-worker-window" class="update-worker-window floating-windows hidden">
+      <button id="update-worker-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
+      <h2>Update Worker</h2>
+      <form id="update-worker-form" class="update-worker-form workers-forms" method="get"> 
+        <label for="worker-name">Name:</label>
+        <input type="text" id="updt-worker-name" name="worker-name">
+        <label for="worker-phone">Phone:</label>
+        <input type="tel" id="updt-worker-phone" name="worker-phone">
+        <label for="worker-address">Address:</label>
+        <input type="text" id="updt-worker-address" name="worker-address">
+        <label for="worker-id-number">ID No:</label>
+        <input type="number" id="updt-worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11" maxlength="11">
+        <label for="worker-birthdate">B.date:</label>
+        <input type="month" id="updt-worker-birthdate" min="" max="" name="worker-birthdate">
+        <label for="CV">CV:</label>
+        <input type="file" id="updt-CV" name="CV">
+        <button type="submit" class="main-btn" id="update-worker-submit">Update Worker</button>
       </form>
     </div>
     <div id="car-list-window" class="car-list-window floating-windows hidden">
@@ -167,6 +197,7 @@
     <div id="worker-list-window" class="worker-list-window floating-windows hidden">
       <button id="worker-list-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Worker List</h2>
+      <p>Double click a row to edit the worker</p>
       <table id="worker-list-table" class="worker-list-table">
         <thead>
           <tr>
@@ -193,7 +224,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script-n.js"></script>
   <script src="random.js"></script>
 
 </body>

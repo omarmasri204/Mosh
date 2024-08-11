@@ -50,7 +50,7 @@ function getRandomOwner() {
 }
 
 function getRandomNotes() {
-  return 'Random notes ' + Math.floor(Math.random() * 100);
+  return 'Random ' + Math.floor(Math.random() * 100);
 }
 
 const plateNumbers = new Set(); // Store generated plate numbers
@@ -69,28 +69,29 @@ function getRandomPlateNumber() {
 
 // Event listener for the button
 generateRandomDataBtn.addEventListener('click', () => {
-  const carData = generateRandomCarData();
+  if (confirm("This will delete/overwrite old data from local storage. Are you sure?")) {
+    const carData = generateRandomCarData();
 
-  localStorage.setItem('carData', JSON.stringify(carData));
-
-  // Clear the tables
-  carListTableBody.innerHTML = '';
-
-  // Add the random data to the tables
-  carData.forEach((car) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-    <td>${car.plateNumber}</td> <!-- Add plate number column -->
-      <td>${car.make}</td>
-      <td>${car.model}</td>
-      <td>${car.year}</td>
-      <td>${car.color}</td>
-      <td>${car.mileage}</td>
-      <td>${car.owner}</td>
-      <td>${car.notes}</td>
-    `;
-    carListTableBody.appendChild(row);
-  });
+    localStorage.setItem('carData', JSON.stringify(carData));
+  
+    // Clear the tables
+    carListTableBody.innerHTML = '';
+  
+    // Add the random data to the tables
+    carData.forEach((car) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+      <td>${car.plateNumber}</td> <!-- Add plate number column -->
+        <td>${car.make}</td>
+        <td>${car.model}</td>
+        <td>${car.year}</td>
+        <td>${car.color}</td>
+        <td>${car.mileage}</td>
+        <td>${car.owner}</td>
+        <td>${car.notes}</td>
+      `;
+      carListTableBody.appendChild(row);
+    });  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
