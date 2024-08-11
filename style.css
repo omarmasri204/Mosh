@@ -372,10 +372,14 @@ img {
   }
 
   .floating-windows {
-    width: 85vw !important;
-    height: fit-content !important;
+    width: 92vw !important;
+    height: 95vh !important;
     overflow: scroll;
     z-index: 10;
+  }
+
+  .circles{
+    width: 92.5vw;
   }
 }
 
@@ -495,7 +499,7 @@ img {
   }
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
   .floating-windows input {
     width: 35vw;
     height: 30px;
@@ -508,7 +512,7 @@ img {
 
 @media only screen and (max-width: 1280px) {
   .floating-windows {
-    width: 70vw !important;
+    width: 70vw ;
   }
 }
 
@@ -847,6 +851,7 @@ textarea:focus {
   overflow: hidden;
   margin: 0;
   z-index: -1;
+  padding-left: 15px;
 }
 
 .circles li{
