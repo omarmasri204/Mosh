@@ -647,11 +647,11 @@ textarea:focus {
   height: 70px;
 }
 
-.add-car-form .plate-no-label,
+/* .add-car-form .plate-no-label,
 .add-car-form .plate-no {
   grid-column: 1/ -1;
   justify-self: center;
-}
+} */
 
 .workers-forms {
   margin-top: 45px;
@@ -844,6 +844,7 @@ textarea:focus {
   margin-top: 30px;
   display: grid;
   justify-items: center;
+  gap: 15px;
 }
 .check-car-status-form button{
   margin-top: 30px;
@@ -963,4 +964,52 @@ textarea:focus {
       opacity: 0.2;
   }
 
+}
+
+/* Style the alert window */
+.alert-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  z-index: 1000;
+}
+
+.alert-window.hidden {
+  display: none;
+}
+.alert-window.slide-in {
+  /* display: block !important; */
+  animation: slideIn 0.2s forwards;
+}
+
+.alert-message {
+  margin-top: 6vh;
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.alert-close-btn {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.alert-close-btn:hover {
+  background-color: #3e8e41;
+}
+
+.alert-close-btn.hidden {
+  display: none;
 }

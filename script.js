@@ -23,6 +23,20 @@ inputFields.forEach((input) => {
   input.setAttribute('required', '');
 });
 
+function showAlert(message) {
+  const alertWindow = document.getElementById('alert-window');
+  const alertMessage = document.getElementById('alert-message');
+  alertMessage.textContent = message;
+  alertWindow.classList.remove('hidden');
+  alertWindow.classList.add('slide-in');
+}
+
+// Function to close the alert window
+document.getElementById('alert-close-btn').addEventListener('click', () => {
+  document.getElementById('alert-window').classList.add('hidden');
+  document.getElementById('alert-window').classList.remove('slide-in');
+});
+
 // Function to toggle dropdown content and button arrow
 function toggleDropdownContent(dropdownId, buttonId, otherDropdownId, otherButtonId) {
   const dropdownContent = document.getElementById(dropdownId);
@@ -147,6 +161,8 @@ document.getElementById('car-year').addEventListener('input', (e) => {
 const maxYearBirth = currentYear - 17;
 const maxDate = `${maxYearBirth}-12`;
 document.getElementById('worker-birthdate').max = maxDate;
+document.getElementById('updt-worker-birthdate').max = maxDate;
+
 
 
 const addWorkerBtn = document.getElementById('add-worker-btn');
@@ -185,7 +201,9 @@ let cars = [];
 addCarForm = document.getElementById('add-car-form');
 addCarForm.addEventListener('submit', (e) => {
   e.preventDefault();
+
   const carPlateNumber = document.getElementById('car-plate-number').value;
+  const cityInput = document.getElementById('car-plate-city').value;
   const carMake = document.getElementById('car-make').value;
   const carModel = document.getElementById('car-model').value;
   const carYear = document.getElementById('car-year').value;
@@ -194,13 +212,14 @@ addCarForm.addEventListener('submit', (e) => {
   const carOwner = document.getElementById('car-owner').value;
   const carNotes = document.getElementById('car-notes').value;
 
-  if (checkPlateNumberExists(carPlateNumber)) {
-    alert('Car plate number already exists!');
+  if (checkPlateNumberExists(carPlateNumber, cityInput)) {
+    showAlert('Car plate number already exists in the workshop!');
     return;
   }
 
   const newCar = {
     plateNumber: carPlateNumber,
+    city: cityInput,
     make: carMake,
     model: carModel,
     year: carYear,
@@ -211,31 +230,66 @@ addCarForm.addEventListener('submit', (e) => {
   };
 
   // Store the new car in local storage
-const carData = JSON.parse(localStorage.getItem('carData')) || [];
-carData.push(newCar);
-localStorage.setItem('carData', JSON.stringify(carData));
+  const carData = JSON.parse(localStorage.getItem('carData')) || [];
+  carData.push(newCar);
+  localStorage.setItem('carData', JSON.stringify(carData));
 
   cars.push(newCar);
 
   populateCarList();
 
+  displayAlert('Car added successfully!');
   addCarWindow.classList.add('hidden');
   addCarWindow.classList.remove('slide-in');
 
   addCarForm.reset();
 });
 
+const cityInput = document.getElementById('car-plate-city');
+const cityList = document.getElementById('city-list');
 
-function checkPlateNumberExists(plateNumber) {
+cityInput.addEventListener('input', () => {
+  const inputValue = cityInput.value;
+  const options = cityList.options;
+  let isValid = false;
+
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].value === inputValue) {
+      isValid = true;
+      break;
+    }
+  }
+
+  if (!isValid) {
+    cityInput.setCustomValidity('Please select a city from the list');
+  } else {
+    cityInput.setCustomValidity('');
+  }
+});
+
+
+function checkPlateNumberExists(plateNumber, city) {
   const storedCarData = localStorage.getItem('carData');
   if (storedCarData) {
     const carData = JSON.parse(storedCarData);
-    if (carData.some((car) => car.plateNumber === plateNumber)) {
-      return true;
-    }
+    return carData.some((car) => car.plateNumber === plateNumber && car.city === city);
   }
-  return cars.some((car) => car.plateNumber === plateNumber);
+  return false;
 }
+
+const plateNumberInput = document.getElementById('car-plate-number');
+
+plateNumberInput.addEventListener('input', (e) => {
+  const plateNumber = e.target.value;
+  if (plateNumber.length > 6) {
+    e.target.value = plateNumber.substring(0, 6);
+  }
+  if (!/^\d{6}$/.test(plateNumber)) {
+    e.target.setCustomValidity('Please enter a 6-digit plate number');
+  } else {
+    e.target.setCustomValidity('');
+  }
+});
 
 function populateCarList() {
   document.getElementById('car-list-tbody').innerHTML = ''; // Clear the tbody
@@ -246,6 +300,7 @@ function populateCarList() {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${car.plateNumber}</td>
+        <td>${car.city}</td>
         <td>${car.make}</td>
         <td>${car.model}</td>
         <td>${car.year}</td>
@@ -261,7 +316,7 @@ function populateCarList() {
 
 const carListWindow = document.getElementById('car-list-window');
 
-document.getElementById('view-car-list-btn').addEventListener('click', function() {
+document.getElementById('view-car-list-btn').addEventListener('click', function () {
   if (currentFloatingWindow === carListWindow) {
     carListWindow.classList.toggle('hidden');
     carListWindow.classList.toggle('slide-in');
@@ -277,9 +332,32 @@ document.getElementById('view-car-list-btn').addEventListener('click', function(
   }
 });
 
-document.getElementById('car-list-close-btn').addEventListener('click', function() {
+document.getElementById('car-list-close-btn').addEventListener('click', function () {
   carListWindow.classList.toggle('hidden');
   carListWindow.classList.toggle('slide-in');
+});
+
+const workerIdNumberInput = document.getElementById('worker-id-number');
+
+workerIdNumberInput.addEventListener('input', (e) => {
+  const idNumber = e.target.value;
+  if (idNumber.length > 11) {
+    e.target.value = idNumber.substring(0, 11);
+  }
+  if (!/^[0-9]+$/.test(idNumber)) {
+    e.target.setCustomValidity('Please enter a 11-digit ID number');
+  } else {
+    e.target.setCustomValidity('');
+  }
+});
+
+workerIdNumberInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab' || e.key === 'Backspace' || e.key === 'Enter') {
+    return; // allow Tab and Backspace keys to work
+  }
+  if (!/^[0-9]$/.test(e.key)) {
+    e.preventDefault();
+  }
 });
 
 // Worker list
@@ -289,14 +367,14 @@ addCarSubmit = document.getElementById('add-car-submit')
 addCarSubmit.addEventListener('click', (e) => {
   e.preventDefault();
 
-  const workerIdNumberInput = document.getElementById('worker-id-number');
+  // const workerIdNumberInput = document.getElementById('worker-id-number');
   const workerIdNumberValue = workerIdNumberInput.value;
 
-  if (!workerIdNumberValue.match(/^[0-9]{11}$/)) {
-    e.preventDefault();
-    alert('Worker ID number must be exactly 11 digits');
-  }
-  else {
+  // if (!workerIdNumberValue.match(/^[0-9]{11}$/)) {
+  //   e.preventDefault();
+  //   alert('Worker ID number must be exactly 11 digits');
+  // }
+  // else {
     const storedWorkerData = localStorage.getItem('workerData');
     const workerData = JSON.parse(storedWorkerData) || [];
 
@@ -304,7 +382,7 @@ addCarSubmit.addEventListener('click', (e) => {
 
     if (existingWorker) {
       e.preventDefault();
-      alert('Worker ID number already exists!');
+      showAlert('Worker ID number already exists!');
     } else {
       const workerName = document.getElementById('worker-name').value;
       const workerBirthdate = document.getElementById('worker-birthdate').value;
@@ -312,7 +390,12 @@ addCarSubmit.addEventListener('click', (e) => {
       const workerPhone = document.getElementById('worker-phone').value;
       const workerId = document.getElementById('worker-id-number').value;
       const workerCV = document.getElementById('CV').value;
-    
+
+      if (!workerIdNumberValue || !workerName || !workerBirthdate || !workerAddress || !workerPhone || !workerCV) {
+        showAlert('Please Fill in All The Fields Or Check For Errors');
+        return;
+      }
+
       const newWorker = {
         name: workerName,
         phone: workerPhone,
@@ -321,24 +404,25 @@ addCarSubmit.addEventListener('click', (e) => {
         birthdate: workerBirthdate,
         notes: workerCV
       };
-    
+
       // Store the new worker in local storage
       const workerData = JSON.parse(localStorage.getItem('workerData')) || [];
       workerData.push(newWorker);
       localStorage.setItem('workerData', JSON.stringify(workerData));
-    
+
       workers.push(newWorker);
-    
+
       populateWorkerList();
-    
+
+      displayAlert('Worker added successfully!');
       addWorkerWindow.classList.toggle('slide-in');
       addWorkerWindow.classList.toggle('hidden');
-    
+
       addWorkerForm.reset();
-    } 
-     
+    }
+
   }
-});
+);
 
 const UpdateWorkerForm = document.getElementById('update-worker-form');
 const UpdateWorkerWindow = document.getElementById('update-worker-window');
@@ -376,17 +460,16 @@ function populateWorkerList() {
         document.getElementById('updt-worker-address').value = worker.address;
         document.getElementById('updt-worker-id-number').value = worker.id;
         document.getElementById('updt-worker-birthdate').value = worker.birthdate;
-        
+
 
         // Add an update button to the form
-        UpdateWorkerForm.addEventListener('submit', () => {
-          event.preventDefault();
+        UpdateWorkerForm.addEventListener('submit', (e) => {
+          e.preventDefault();
           // Update the worker data
-          
+
           worker.name = document.getElementById('updt-worker-name').value;
           worker.phone = document.getElementById('updt-worker-phone').value;
           worker.address = document.getElementById('updt-worker-address').value;
-          // worker.id = document.getElementById('updt-worker-id-number').value;
           worker.birthdate = document.getElementById('updt-worker-birthdate').value;
 
           // Update the local storage
@@ -395,10 +478,12 @@ function populateWorkerList() {
           workerData[index] = worker;
           localStorage.setItem('workerData', JSON.stringify(workerData));
 
-          // Close the add worker window
+          workers = workerData;
+
+          displayAlert('Worker updated successfully!');
           UpdateWorkerWindow.classList.add('hidden');
           UpdateWorkerWindow.classList.remove('slide-in');
-          
+
           // Refresh the worker list
           populateWorkerList();
 
@@ -407,7 +492,7 @@ function populateWorkerList() {
           inputFields.forEach((input) => {
             input.setAttribute('required', '');
           });
-          window.location.href = '/index.html';
+          // window.location.href = '/index.html';
         });
       });
       document.getElementById('worker-list-tbody').appendChild(row);
@@ -417,7 +502,7 @@ function populateWorkerList() {
 
 const workerListWindow = document.getElementById('worker-list-window');
 
-document.getElementById('view-worker-list-btn').addEventListener('click', function() {
+document.getElementById('view-worker-list-btn').addEventListener('click', function () {
   if (currentFloatingWindow === workerListWindow) {
     workerListWindow.classList.toggle('hidden');
     workerListWindow.classList.toggle('slide-in');
@@ -433,12 +518,12 @@ document.getElementById('view-worker-list-btn').addEventListener('click', functi
   }
 });
 
-document.getElementById('worker-list-close-btn').addEventListener('click', function() {
+document.getElementById('worker-list-close-btn').addEventListener('click', function () {
   workerListWindow.classList.toggle('hidden');
   workerListWindow.classList.toggle('slide-in');
 });
 
-document.getElementById('update-worker-close-btn').addEventListener('click', function() {
+document.getElementById('update-worker-close-btn').addEventListener('click', function () {
   UpdateWorkerWindow.classList.toggle('hidden');
   UpdateWorkerWindow.classList.toggle('slide-in');
 });
@@ -458,7 +543,7 @@ document.getElementById('clear-local-storage-btn').addEventListener('click', () 
   if (confirm("This will delete/overwrite old data from local storage. Are you sure?")) {
     localStorage.clear();
     location.reload();
-    alert('Local storage cleared!');
+    showAlert('Local storage cleared!');
   }
 });
 
@@ -494,19 +579,56 @@ document.getElementById('check-car-status-form').addEventListener('submit', (e) 
   e.preventDefault();
 
   const carPlateNumber = document.getElementById('check-car-plate-number').value;
-  const storedCarData = localStorage.getItem('carData');
-  const carData = JSON.parse(storedCarData) || [];
-
-  const matchingCar = carData.find((car) => car.plateNumber === carPlateNumber);
-
-  if (matchingCar) {
-    alert('The car is still fixing.');
+  const city = document.getElementById('check-car-city-list').value;
+  console.log(city)
+  if (checkPlateNumberExists(carPlateNumber, city)) {
+    showAlert('We Are Still Fixing The Car.');
   } else {
-    alert('The car is with its owner.');
+    showAlert('The Car Have Been Already Fixed Or The Car Never Existed.');
   }
+
 });
-  // Close the window after submitting the form
-  document.getElementById('check-car-status-close-btn').addEventListener('click', () => {
-    document.getElementById('check-car-status-window').classList.toggle('hidden');
-    document.getElementById('check-car-status-window').classList.toggle('slide-in');
-  });
+// Close the window after submitting the form
+document.getElementById('check-car-status-close-btn').addEventListener('click', () => {
+  document.getElementById('check-car-status-window').classList.toggle('hidden');
+  document.getElementById('check-car-status-window').classList.toggle('slide-in');
+  document.getElementById('check-car-status-form').reset();
+});
+
+
+// Function to display the floating alert
+function displayAlert(message) {
+  console.log(`Displaying alert: ${message}`);
+
+  const alertElement = document.getElementById('success-alert');
+  const alertMessageElement = document.getElementById('success-alert-message');
+  alertMessageElement.textContent = message;
+  alertElement.classList.remove('hidden');
+  alertElement.classList.add('slide-in');
+
+  setTimeout(() => {
+    alertElement.classList.add('hidden');
+  }, 3000); // Hide the alert after 3 seconds
+}
+
+// // Example usage:
+// // When adding a worker
+// addWorkerForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   // Add worker logic here
+//   displayAlert('Worker added successfully!');
+// });
+
+// // When adding a car
+// addCarForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   // Add car logic here
+//   displayAlert('Car added successfully!');
+// });
+
+// // When editing a car
+// editCarForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   // Edit car logic here
+//   displayAlert('Car updated successfully!');
+// });

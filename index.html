@@ -5,6 +5,7 @@
   <title>Automated Car Fixing Center</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://unpkg.com/css.gg/icons/icons.css" rel="stylesheet" />
+  <link href="icon.css" rel="stylesheet" />
   <!-- <script src="./assets/UI.js"></script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -80,7 +81,8 @@
     </nav>
 
     <button id="clear-local-storage-btn" class="clear-local-storage-btn storage-btn">Clear Local Storage</button>
-    <button id="view-local-storage-btn" class="view-local-storage-btn storage-btn">View Local Storage in New Page</button>
+    <button id="view-local-storage-btn" class="view-local-storage-btn storage-btn">View Local Storage in New
+      Page</button>
 
     <div class="car-animation" id="car-animation">
       <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
@@ -91,7 +93,7 @@
 
       <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
         type="module"></script>
-      
+
       <h2> <b>Dashboard</b><br> is Coming Soon ...</h2>
       <dotlottie-player src="https://lottie.host/510a5420-1b9e-43f4-b00e-dc85b82b750a/Xuw6S0ifrq.json"
         background="transparent" speed="0.8" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
@@ -108,7 +110,7 @@
       <li></li>
       <li></li>
       <li></li>
-</ul>
+    </ul>
   </div>
 
   <div>
@@ -116,6 +118,18 @@
       <button id="add-car-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Add A New Car To The Workshop</h2>
       <form id="add-car-form" class="add-car-form" method="post">
+        <label for="car-plate-city">Plate Reg.City:</label>
+        <input type="text" id="car-plate-city" class="plate-city-label" name="car-plate-city" list="city-list"
+          autocomplete="off">
+        <datalist id="city-list">
+          <option value="Damascus">Damascus</option>
+          <option value="Aleppo">Aleppo</option>
+          <option value="Lattakia">Lattakia</option>
+          <option value="Tartous">Tartous</option>
+          <option value="Homs">Homs</option>
+          <option value="Hama">Hama</option>
+        </datalist>
+
         <label for="car-plate-number" class="plate-no-label">Plate Number:</label>
         <input type="text" id="car-plate-number" name="car-plate-number" class="plate-no">
         <label for="car-make">Make:</label>
@@ -138,7 +152,7 @@
     <div id="add-worker-window" class="add-worker-window floating-windows hidden">
       <button id="add-worker-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Add A New Worker</h2>
-      <form id="add-worker-form" class="add-worker-form workers-forms" method="post"> 
+      <form id="add-worker-form" class="add-worker-form workers-forms" method="post">
         <label for="worker-name">Name:</label>
         <input type="text" id="worker-name" name="worker-name">
         <label for="worker-phone">Phone:</label>
@@ -146,7 +160,8 @@
         <label for="worker-address">Address:</label>
         <input type="text" id="worker-address" name="worker-address">
         <label for="worker-id-number">ID No:</label>
-        <input type="number" id="worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11" maxlength="11">
+        <input type="number" id="worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11"
+          maxlength="11">
         <label for="worker-birthdate">B.date:</label>
         <input type="month" id="worker-birthdate" min="" max="" name="worker-birthdate">
         <label for="CV">CV:</label>
@@ -157,7 +172,7 @@
     <div id="update-worker-window" class="update-worker-window floating-windows hidden">
       <button id="update-worker-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Update Worker</h2>
-      <form id="update-worker-form" class="update-worker-form workers-forms" method="get"> 
+      <form id="update-worker-form" class="update-worker-form workers-forms" method="get">
         <label for="worker-name">Name:</label>
         <input type="text" id="updt-worker-name" name="worker-name">
         <label for="worker-phone">Phone:</label>
@@ -165,7 +180,8 @@
         <label for="worker-address">Address:</label>
         <input type="text" id="updt-worker-address" name="worker-address">
         <label for="worker-id-number">ID No:</label>
-        <input type="number" id="updt-worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11" maxlength="11">
+        <input type="number" id="updt-worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11"
+          maxlength="11">
         <label for="worker-birthdate">B.date:</label>
         <input type="month" id="updt-worker-birthdate" min="" max="" name="worker-birthdate">
         <label for="CV">CV:</label>
@@ -181,6 +197,7 @@
         <thead>
           <tr>
             <th>Plate Number</th>
+            <th>Plate City</th>
             <th>Make</th>
             <th>Model</th>
             <th>Year</th>
@@ -217,14 +234,46 @@
       <button id="check-car-status-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Check Car Status</h2>
       <form id="check-car-status-form" class="check-car-status-form" method="post">
+        <label for="car-plate-city">Plate Reg.City:</label>
+        <input type="text" id="check-car-city-list" class="plate-city-label" list="city-list" autocomplete="off">
+        <datalist id="city-list">
+          <option value="Damascus">Damascus</option>
+          <option value="Aleppo">Aleppo</option>
+          <option value="Lattakia">Lattakia</option>
+          <option value="Tartous">Tartous</option>
+          <option value="Homs">Homs</option>
+          <option value="Hama">Hama</option>
+        </datalist>
+
         <label for="car-plate-number">Plate Number:</label>
         <input type="text" id="check-car-plate-number" name="car-plate-number" class="plate-no">
         <button type="submit" class="main-btn">Check Car</button>
       </form>
     </div>
+    <div id="alert-window" class="alert-window hidden">
+      <div class="icon warning"> 
+        <span class="body"></span> 
+        <span class="dot"></span> 
+      </div> 
+
+      <p id="alert-message" class="alert-message"></p>
+      <button id="alert-close-btn" class="alert-close-btn">Close</button>
+    </div>
+
+
+    <div id="success-alert" class="alert-window hidden">
+      <div class="icon success animate"> 
+        <span class="successLine tip animateSuccessTip"></span> 
+        <span class="successLine long animateSuccessLong"></span> 
+        <div class="placeholder"></div> 
+        <div class="fix"></div> 
+      </div>
+
+      <p id="success-alert-message" class="alert-message"></p>
+    </div>
   </div>
 
-  <script src="script-n.js"></script>
+  <script src="script.js"></script>
   <script src="random.js"></script>
 
 </body>
