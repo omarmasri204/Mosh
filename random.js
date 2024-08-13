@@ -110,14 +110,14 @@ generateRandomDataBtn.addEventListener('click', () => {
         <td>${car.notes}</td>
       `;
       carListTableBody.appendChild(row);
-      window.location.href = '/index.html';
+      window.location.href = 'index.html';
     });
   });
 
   confirmNoBtn.addEventListener('click', () => {
     // Hide the dialog
     confirmDialog.style.display = 'none';
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
   });
 });
 
@@ -157,13 +157,13 @@ clearRandomCarsBtn.addEventListener('click', () => {
     confirmDialog.style.display = 'none';
     localStorage.removeItem('carData');
     carListTableBody.innerHTML = ''; // Clear the table body
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
 
   });
 
   confirmNoBtn.addEventListener('click', () => {
     // Hide the dialog
     confirmDialog.style.display = 'none';
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
   });
 });
