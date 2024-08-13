@@ -248,25 +248,16 @@ addCarForm.addEventListener('submit', (e) => {
 const cityInput = document.getElementById('car-plate-city');
 const cityList = document.getElementById('city-list');
 
-cityInput.addEventListener('input', () => {
-  const inputValue = cityInput.value;
-  const options = cityList.options;
-  let isValid = false;
+cityInput.addEventListener('input', (e) => {
+  const inputValue = e.target.value;
+  const isValidCity = Array.prototype.some.call(cityList.children, (city) => {
+    return city.value === inputValue;
+  });
 
-  for (let i = 0; i < options.length; i++) {
-    if (options[i].value === inputValue) {
-      isValid = true;
-      break;
-    }
-  }
-
-  if (!isValid) {
-    cityInput.setCustomValidity('Please select a city from the list');
-  } else {
-    cityInput.setCustomValidity('');
+  if (!isValidCity) {
+    e.target.value = '';
   }
 });
-
 
 function checkPlateNumberExists(plateNumber, city) {
   const storedCarData = localStorage.getItem('carData');
@@ -470,9 +461,6 @@ function populateWorkerList() {
         workerListWindow.classList.remove('slide-in');
         currentFloatingWindow = UpdateWorkerWindow;
         
-        document.getElementById('updt-worker-id-number').setAttribute('disabled', true);
-        document.getElementById('updt-CV').setAttribute('disabled', true);
-
 
         document.getElementById('updt-worker-name').value = worker.name;
         document.getElementById('updt-worker-phone').value = worker.phone;
@@ -486,28 +474,36 @@ function populateWorkerList() {
           e.preventDefault();
           // Update the worker data
 
-          worker.name = document.getElementById('updt-worker-name').value;
-          worker.phone = document.getElementById('updt-worker-phone').value;
-          worker.address = document.getElementById('updt-worker-address').value;
-          worker.birthdate = document.getElementById('updt-worker-birthdate').value;
-
-          // Update the local storage
+          const workerId = document.getElementById('updt-worker-id-number').value;
+          const workerName = document.getElementById('updt-worker-name').value;
+          const workerPhone = document.getElementById('updt-worker-phone').value;
+          const workerAddress = document.getElementById('updt-worker-address').value;
+          const workerBirthdate = document.getElementById('updt-worker-birthdate').value;
+        
           const workerData = JSON.parse(localStorage.getItem('workerData'));
-          const index = workerData.findIndex((w) => w.id === worker.id);
-          workerData[index] = worker;
-          localStorage.setItem('workerData', JSON.stringify(workerData));
-
-          workers = workerData;
-          workers[index] = worker;
-
-          displayAlert('Worker updated successfully!');
-          UpdateWorkerWindow.classList.add('hidden');
-          UpdateWorkerWindow.classList.remove('slide-in');
-
-          // Refresh the worker list
-          populateWorkerList();
-
-          UpdateWorkerForm.reset();
+          const index = workerData.findIndex((worker) => worker.id === workerId);
+        
+          if (index !== -1) {
+            workerData[index].name = workerName;
+            workerData[index].phone = workerPhone;
+            workerData[index].address = workerAddress;
+            workerData[index].birthdate = workerBirthdate;
+        
+            // Update local storage
+            localStorage.setItem('workerData', JSON.stringify(workerData));
+        
+            // Update the workers array
+            workers = workerData;
+        
+            displayAlert('Worker updated successfully!');
+            UpdateWorkerWindow.classList.add('hidden');
+            UpdateWorkerWindow.classList.remove('slide-in');
+        
+            // Refresh the worker list
+            populateWorkerList();
+        
+            UpdateWorkerForm.reset();
+          } 
 
           inputFields.forEach((input) => {
             input.setAttribute('required', '');

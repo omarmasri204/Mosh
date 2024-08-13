@@ -155,9 +155,9 @@
       <h2>Edit Car Information</h2>
       <form id="edit-car-form" class="edit-car-form cars-forms" method="post">
         <label for="edit-car-plate-city">Plate Reg.City:</label>
-        <input type="text" id="edit-car-plate-city" name="car-plate-city" readonly>
+        <input type="text" id="edit-car-plate-city" name="car-plate-city" disabled>
         <label for="edit-car-plate-number">Plate Number:</label>
-        <input type="text" id="edit-car-plate-number" name="car-plate-number" readonly>
+        <input type="text" id="edit-car-plate-number" name="car-plate-number" disabled>
         <label for="edit-car-make">Make:</label>
         <input type="text" id="edit-car-make" name="car-make">
         <label for="edit-car-model">Model:</label>
@@ -199,7 +199,7 @@
     <div id="update-worker-window" class="update-worker-window floating-windows hidden">
       <button id="update-worker-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Update Worker</h2>
-      <form id="update-worker-form" class="update-worker-form workers-forms" method="get">
+      <form id="update-worker-form" class="update-worker-form workers-forms" method="POST">
         <label for="worker-name">Name:</label>
         <input type="text" id="updt-worker-name" name="worker-name">
         <label for="worker-phone">Phone:</label>
@@ -208,11 +208,11 @@
         <input type="text" id="updt-worker-address" name="worker-address">
         <label for="worker-id-number">ID No:</label>
         <input type="number" id="updt-worker-id-number" name="worker-id-number" pattern="[0-9]{11}" minlength="11"
-          maxlength="11">
+          maxlength="11" disabled>
         <label for="worker-birthdate">B.date:</label>
         <input type="month" id="updt-worker-birthdate" min="" max="" name="worker-birthdate">
         <label for="CV">CV:</label>
-        <input type="file" id="updt-CV" name="CV">
+        <input type="file" id="updt-CV" name="CV" disabled>
         <button type="submit" class="main-btn" id="update-worker-submit">Update Worker</button>
         <button type="button" class="delete-btn" id="delete-worker-btn">Delete Worker</button>
       </form>
