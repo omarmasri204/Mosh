@@ -117,21 +117,22 @@
     <div id="add-car-window" class="add-car-window floating-windows hidden">
       <button id="add-car-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Add A New Car To The Workshop</h2>
-      <form id="add-car-form" class="add-car-form" method="post">
+      <form id="add-car-form" class="add-car-form cars-forms" method="post">
         <label for="car-plate-city">Plate Reg.City:</label>
-        <input type="text" id="car-plate-city" class="plate-city-label" name="car-plate-city" list="city-list"
-          autocomplete="off">
-        <datalist id="city-list">
-          <option value="Damascus">Damascus</option>
-          <option value="Aleppo">Aleppo</option>
-          <option value="Lattakia">Lattakia</option>
-          <option value="Tartous">Tartous</option>
-          <option value="Homs">Homs</option>
-          <option value="Hama">Hama</option>
-        </datalist>
+        <input type="text" id="car-plate-city" class="plate-city-label" name="car-plate-city" autocomplete="off">
+        <div id="city-list-container" class="hidden">
+          <ul id="city-list">
+            <li value="Damascus">Damascus</li>
+            <li value="Aleppo">Aleppo</li>
+            <li value="Lattakia">Lattakia</li>
+            <li value="Tartous">Tartous</li>
+            <li value="Homs">Homs</li>
+            <li value="Hama">Hama</li>
+          </ul>
+        </div>
 
         <label for="car-plate-number" class="plate-no-label">Plate Number:</label>
-        <input type="text" id="car-plate-number" name="car-plate-number" class="plate-no">
+        <input type="text" id="car-plate-number" name="car-plate-number" class="plate-no" max="999999">
         <label for="car-make">Make:</label>
         <input type="text" id="car-make" name="car-make">
         <label for="car-model">Model:</label>
@@ -147,6 +148,32 @@
         <label for="car-notes">Notes:</label>
         <textarea id="car-notes" name="car-notes"></textarea>
         <button type="submit" class="main-btn">Add Car</button>
+      </form>
+    </div>
+    <div id="edit-car-window" class="edit-car-window floating-windows hidden">
+      <button id="edit-car-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
+      <h2>Edit Car Information</h2>
+      <form id="edit-car-form" class="edit-car-form cars-forms" method="post">
+        <label for="edit-car-plate-city">Plate Reg.City:</label>
+        <input type="text" id="edit-car-plate-city" name="car-plate-city" readonly>
+        <label for="edit-car-plate-number">Plate Number:</label>
+        <input type="text" id="edit-car-plate-number" name="car-plate-number" readonly>
+        <label for="edit-car-make">Make:</label>
+        <input type="text" id="edit-car-make" name="car-make">
+        <label for="edit-car-model">Model:</label>
+        <input type="text" id="edit-car-model" name="car-model">
+        <label for="edit-car-year">Year:</label>
+        <input type="number" id="edit-car-year" name="car-year" min="" max="">
+        <label for="edit-car-color">Color:</label>
+        <input type="text" id="edit-car-color" name="car-color">
+        <label for="edit-car-mileage">Mileage:</label>
+        <input type="number" id="edit-car-mileage" name="car-mileage" min="0">
+        <label for="edit-car-owner">Owner:</label>
+        <input type="text" id="edit-car-owner" name="car-owner">
+        <label for="edit-car-notes">Notes:</label>
+        <textarea id="edit-car-notes" name="car-notes"></textarea>
+        <button type="submit" class="main-btn">Update Car</button>
+        <button type="button" class="delete-btn" id="delete-car-btn">Delete Car</button>
       </form>
     </div>
     <div id="add-worker-window" class="add-worker-window floating-windows hidden">
@@ -187,12 +214,16 @@
         <label for="CV">CV:</label>
         <input type="file" id="updt-CV" name="CV">
         <button type="submit" class="main-btn" id="update-worker-submit">Update Worker</button>
+        <button type="button" class="delete-btn" id="delete-worker-btn">Delete Worker</button>
       </form>
     </div>
     <div id="car-list-window" class="car-list-window floating-windows hidden">
       <button id="generate-random-data-btn">Generate Random Data</button>
+      <button id="clear-random-cars-btn">Clear Random Cars</button>
       <button id="car-list-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Car List</h2>
+      <p><i>Double click a row to edit the car</i></p>
+      <p><i>You can't edit the plate reg.city and the plate number</i></p>
       <table id="car-list-table" class="car-list-table">
         <thead>
           <tr>
@@ -215,6 +246,7 @@
       <button id="worker-list-close-btn" class="close-btn"><i class="gg-close-r"></i></button>
       <h2>Worker List</h2>
       <p><i>Double click a row to edit the worker</i></p>
+      <p><i>You can't edit the ID number and the CV</i></p>
       <table id="worker-list-table" class="worker-list-table">
         <thead>
           <tr>
@@ -235,15 +267,17 @@
       <h2>Check Car Status</h2>
       <form id="check-car-status-form" class="check-car-status-form" method="post">
         <label for="car-plate-city">Plate Reg.City:</label>
-        <input type="text" id="check-car-city-list" class="plate-city-label" list="city-list" autocomplete="off">
-        <datalist id="city-list">
-          <option value="Damascus">Damascus</option>
-          <option value="Aleppo">Aleppo</option>
-          <option value="Lattakia">Lattakia</option>
-          <option value="Tartous">Tartous</option>
-          <option value="Homs">Homs</option>
-          <option value="Hama">Hama</option>
-        </datalist>
+        <input type="text" id="check-car-city-list" class="plate-city-label" autocomplete="off">
+        <div id="chk-city-list-container" class="hidden">
+          <ul id="city-list">
+            <li value="Damascus">Damascus</li>
+            <li value="Aleppo">Aleppo</li>
+            <li value="Lattakia">Lattakia</li>
+            <li value="Tartous">Tartous</li>
+            <li value="Homs">Homs</li>
+            <li value="Hama">Hama</li>
+          </ul>
+        </div>
 
         <label for="car-plate-number">Plate Number:</label>
         <input type="text" id="check-car-plate-number" name="car-plate-number" class="plate-no">
@@ -251,25 +285,38 @@
       </form>
     </div>
     <div id="alert-window" class="alert-window hidden">
-      <div class="icon warning"> 
-        <span class="body"></span> 
-        <span class="dot"></span> 
-      </div> 
+      <div class="icon warning">
+        <span class="body"></span>
+        <span class="dot"></span>
+      </div>
 
       <p id="alert-message" class="alert-message"></p>
       <button id="alert-close-btn" class="alert-close-btn">Close</button>
     </div>
-
-
     <div id="success-alert" class="alert-window hidden">
-      <div class="icon success animate"> 
-        <span class="successLine tip animateSuccessTip"></span> 
-        <span class="successLine long animateSuccessLong"></span> 
-        <div class="placeholder"></div> 
-        <div class="fix"></div> 
+      <div class="icon success animate">
+        <span class="successLine tip animateSuccessTip"></span>
+        <span class="successLine long animateSuccessLong"></span>
+        <div class="placeholder"></div>
+        <div class="fix"></div>
       </div>
 
       <p id="success-alert-message" class="alert-message"></p>
+    </div>
+    <div id="confirm-dialog" class="alert-window hidden">
+      <div class="dialog-content">
+        <div class="icon error">
+          <span class="x-mark">
+            <span class="errorLine left"></span>
+            <span class="errorLine right"></span>
+          </span>
+        </div>
+        <p>This will delete/overwrite old data from local storage. Are you sure?</p>
+        <p><i>You will be prevented from doing anything with the generated data,
+           use it to see the responsiveness/overflow only</i></p>
+        <button id="confirm-yes" class="confirm-yes">Yes</button>
+        <button id="confirm-no" class="confirm-no">No</button>
+      </div>
     </div>
   </div>
 

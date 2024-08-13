@@ -70,24 +70,36 @@ function getRandomPlateNumber() {
   return plateNumber.toString(); // Return the plate number as a string
 }
 
+// Get the custom confirmation dialog elements
+const confirmDialog = document.getElementById('confirm-dialog');
+const confirmYesBtn = document.getElementById('confirm-yes');
+const confirmNoBtn = document.getElementById('confirm-no');
+
 // Event listener for the button
 generateRandomDataBtn.addEventListener('click', () => {
-  if (confirm("This will delete/overwrite old data from local storage. Are you sure?")) {
+  console.log('Button clicked!');
+
+  // Show the custom confirmation dialog
+  confirmDialog.classList.remove('hidden');
+  confirmDialog.classList.add('slide-in');
+  carListWindow.classList.add('hidden');
+  carListWindow.classList.remove('slide-in');
+
+  // Add event listeners for the yes and no buttons
+  confirmYesBtn.addEventListener('click', () => {
+    // Hide the dialog and generate the random data
+    confirmDialog.style.display = 'none';
     const carData = generateRandomCarData();
-
     localStorage.setItem('carData', JSON.stringify(carData));
-
     // Clear the tables
     carListTableBody.innerHTML = '';
     // Clear the cars array
     cars.length = 0;
-
-
     // Add the random data to the tables
     carData.forEach((car) => {
       const row = document.createElement('tr');
       row.innerHTML = `
-      <td>${car.plateNumber}</td> <!-- Add plate number column -->
+        <td>${car.plateNumber}</td>
         <td>${car.cityInput}</td>
         <td>${car.make}</td>
         <td>${car.model}</td>
@@ -98,8 +110,15 @@ generateRandomDataBtn.addEventListener('click', () => {
         <td>${car.notes}</td>
       `;
       carListTableBody.appendChild(row);
+      window.location.href = '/index.html';
     });
-  }
+  });
+
+  confirmNoBtn.addEventListener('click', () => {
+    // Hide the dialog
+    confirmDialog.style.display = 'none';
+    window.location.href = '/index.html';
+  });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -122,4 +141,29 @@ document.addEventListener('DOMContentLoaded', () => {
       carListTableBody.appendChild(row);
     });
   }
+});
+
+const clearRandomCarsBtn = document.getElementById('clear-random-cars-btn');
+
+clearRandomCarsBtn.addEventListener('click', () => {
+  confirmDialog.classList.remove('hidden');
+  confirmDialog.classList.add('slide-in');
+  carListWindow.classList.add('hidden');
+  carListWindow.classList.remove('slide-in');
+
+
+  confirmYesBtn.addEventListener('click', () => {
+
+    confirmDialog.style.display = 'none';
+    localStorage.removeItem('carData');
+    carListTableBody.innerHTML = ''; // Clear the table body
+    window.location.href = '/index.html';
+
+  });
+
+  confirmNoBtn.addEventListener('click', () => {
+    // Hide the dialog
+    confirmDialog.style.display = 'none';
+    window.location.href = '/index.html';
+  });
 });

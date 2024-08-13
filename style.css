@@ -415,15 +415,15 @@ img {
     margin-top: 10px !important;
   }
   
-  .add-car-form, .workers-forms {
+  .cars-forms, .workers-forms {
     grid-auto-flow: row;
     grid-template-columns: 1fr !important;
     justify-items: center;
   }
 
-  .add-car-form input,
-  .add-car-form textarea,
-  .add-car-form button {
+  .cars-forms input,
+ .cars-forms textarea,
+  .cars-forms button {
     grid-column: 1 !important;
   }
   
@@ -461,15 +461,11 @@ img {
     width: 250px;
   }
   
-  .add-car-form {
+  .cars-forms {
     padding: 10px;
     gap: 20px !important;
   }
-  
-  .workers-forms {
-    
-    row-gap: 40px !important;
-  }
+
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
@@ -478,7 +474,7 @@ img {
     height: 30px;
   }
   
-  .add-car-form {
+ .cars-forms {
     margin-top: 10px !important;
   }
 }
@@ -609,8 +605,7 @@ img {
   text-decoration-line: underline;
 }
 
-.floating-windows h2,
-.floating-windows form button {
+.floating-windows h2 {
   color: #3a57e8 !important;
 }
 
@@ -625,7 +620,7 @@ img {
   height: 30px;
 }
 
-.add-car-form {
+.cars-forms {
   margin-top: 30px;
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -642,16 +637,10 @@ textarea:focus {
   border: 2px solid #3a57e8;
 }
 
-.add-car-form textarea {
+.cars-forms textarea {
   grid-column: 2/span 3;
   height: 70px;
 }
-
-/* .add-car-form .plate-no-label,
-.add-car-form .plate-no {
-  grid-column: 1/ -1;
-  justify-self: center;
-} */
 
 .workers-forms {
   margin-top: 45px;
@@ -668,12 +657,8 @@ textarea:focus {
   width: 30vw;
 }
 
-.main-btn:hover {
-  color: #fff !important;
-  background: #3a57e8;
-}
-
-.main-btn {
+.main-btn,
+.delete-btn {
   padding: 5px 8px;
   margin-top: 15px;
   cursor: pointer;
@@ -683,10 +668,32 @@ textarea:focus {
   z-index: 0;
   background: #fff;
   overflow: hidden;
+  justify-self: center;
+}
+
+.main-btn {
   border: 2px solid #3a57e8;
   color: #3a57e8;
   grid-column: 1 / -1;
-  justify-self: center;
+}
+
+.delete-btn {
+  color: red !important;
+  border: 2px solid red;
+  color: red;
+  grid-column: 1 / -1;
+  align-items: center;
+  width: max-content;
+}
+
+.main-btn:hover {
+  color: #fff !important;
+  background: #3a57e8;
+}
+
+.delete-btn:hover {
+  color: #fff !important;
+  background: red;
 }
 
 .workers-forms select,
@@ -718,7 +725,8 @@ textarea:focus {
   height: 70vh;
 }
 
-.worker-list-window p {
+.worker-list-window p,
+.car-list-window p {
   text-align: center;
   color: #3a57e8;
   opacity: 0.8;
@@ -1012,4 +1020,52 @@ textarea:focus {
 
 .alert-close-btn.hidden {
   display: none;
+}
+
+#city-list-container {
+  position: absolute;
+  justify-self: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 200px;
+}
+
+#city-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#city-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+#city-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.confirm-yes, .confirm-no {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.confirm-yes {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.confirm-no {
+  background-color: #ccc;
+  color: #333;
 }
